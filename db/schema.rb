@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_06_090342) do
+ActiveRecord::Schema.define(version: 2021_08_06_105316) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -18,22 +18,22 @@ ActiveRecord::Schema.define(version: 2021_08_06_090342) do
   create_table "cinema_halls", force: :cascade do |t|
     t.integer "row_number"
     t.integer "seats_in_row"
-    t.string "name"
+    t.string "name", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "movies", force: :cascade do |t|
     t.string "title"
-    t.string "description"
-    t.string "duration_min"
+    t.string "description", null: false
+    t.interval "duration_min"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "screenings", force: :cascade do |t|
-    t.bigint "cinema_hall_id", null: false
-    t.bigint "movie_id", null: false
+    t.bigint "cinema_hall_id"
+    t.bigint "movie_id"
     t.time "start_time"
     t.date "date"
     t.datetime "created_at", precision: 6, null: false
