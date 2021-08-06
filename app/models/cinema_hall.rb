@@ -1,0 +1,2 @@
+class CinemaHall < ApplicationRecord
+end
