@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -10,38 +12,37 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_06_105316) do
-
+ActiveRecord::Schema.define(version: 20_210_806_105_316) do
   # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
+  enable_extension 'plpgsql'
 
-  create_table "cinema_halls", force: :cascade do |t|
-    t.integer "row_number"
-    t.integer "seats_in_row"
-    t.string "name", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+  create_table 'cinema_halls', force: :cascade do |t|
+    t.integer 'row_number'
+    t.integer 'seats_in_row'
+    t.string 'name', null: false
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
   end
 
-  create_table "movies", force: :cascade do |t|
-    t.string "title"
-    t.string "description", null: false
-    t.interval "duration_min"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+  create_table 'movies', force: :cascade do |t|
+    t.string 'title'
+    t.string 'description', null: false
+    t.interval 'duration_min'
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
   end
 
-  create_table "screenings", force: :cascade do |t|
-    t.bigint "cinema_hall_id"
-    t.bigint "movie_id"
-    t.time "start_time"
-    t.date "date"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["cinema_hall_id"], name: "index_screenings_on_cinema_hall_id"
-    t.index ["movie_id"], name: "index_screenings_on_movie_id"
+  create_table 'screenings', force: :cascade do |t|
+    t.bigint 'cinema_hall_id'
+    t.bigint 'movie_id'
+    t.time 'start_time'
+    t.date 'date'
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
+    t.index ['cinema_hall_id'], name: 'index_screenings_on_cinema_hall_id'
+    t.index ['movie_id'], name: 'index_screenings_on_movie_id'
   end
 
-  add_foreign_key "screenings", "cinema_halls"
-  add_foreign_key "screenings", "movies"
+  add_foreign_key 'screenings', 'cinema_halls'
+  add_foreign_key 'screenings', 'movies'
 end
