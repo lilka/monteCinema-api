@@ -30,7 +30,10 @@ gem 'bootsnap', '>= 1.4.4', require: false
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
+  gem 'figaro', '~> 1.1', '>= 1.1.1'
   gem 'rubocop', '~> 1.18', '>= 1.18.4'
+  gem 'sentry-rails', '~> 4.3', '>= 4.3.3'
+  gem 'sentry-ruby', '~> 4.6', '>= 4.6.4'
 end
 
 group :development do
