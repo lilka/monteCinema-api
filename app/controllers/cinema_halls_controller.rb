@@ -4,7 +4,6 @@ class CinemaHallsController < ApplicationController
   before_action :set_cinema_halls, only: %i[show update destroy]
   # GET /cinema_halls
   def index
-    Sentry.capture_message('test message')
     @cinema_halls = CinemaHall.all
     @cinema_halls = CinemaHall.where('name like ?', "%#{params[:name]}%") if params[:name]
 
