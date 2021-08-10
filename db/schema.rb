@@ -12,7 +12,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20_210_806_105_316) do
+ActiveRecord::Schema.define(version: 20_210_810_102_908) do
   # These are extensions that must be enabled in order to support this database
   enable_extension 'plpgsql'
 
@@ -32,6 +32,24 @@ ActiveRecord::Schema.define(version: 20_210_806_105_316) do
     t.datetime 'updated_at', precision: 6, null: false
   end
 
+  create_table 'reservations', force: :cascade do |t|
+    t.bigint 'screening_id', null: false
+    t.datetime 'date'
+    t.boolean 'paid'
+    t.string 'status'
+    t.bigint 'user_id', null: false
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
+    t.index ['screening_id'], name: 'index_reservations_on_screening_id'
+    t.index ['user_id'], name: 'index_reservations_on_user_id'
+  end
+
+  create_table 'roles', force: :cascade do |t|
+    t.string 'role_name'
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
+  end
+
   create_table 'screenings', force: :cascade do |t|
     t.bigint 'cinema_hall_id'
     t.bigint 'movie_id'
@@ -43,6 +61,35 @@ ActiveRecord::Schema.define(version: 20_210_806_105_316) do
     t.index ['movie_id'], name: 'index_screenings_on_movie_id'
   end
 
+  create_table 'seats', force: :cascade do |t|
+    t.bigint 'cinema_hall_id', null: false
+    t.integer 'row'
+    t.integer 'number'
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
+    t.index ['cinema_hall_id'], name: 'index_seats_on_cinema_hall_id'
+  end
+
+  create_table 'ticket_types', force: :cascade do |t|
+    t.string 'name'
+    t.decimal 'price'
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
+  end
+
+  create_table 'users', force: :cascade do |t|
+    t.bigint 'role_id', null: false
+    t.string 'email'
+    t.string 'password'
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
+    t.index ['role_id'], name: 'index_users_on_role_id'
+  end
+
+  add_foreign_key 'reservations', 'screenings'
+  add_foreign_key 'reservations', 'users'
   add_foreign_key 'screenings', 'cinema_halls'
   add_foreign_key 'screenings', 'movies'
+  add_foreign_key 'seats', 'cinema_halls'
+  add_foreign_key 'users', 'roles'
 end
