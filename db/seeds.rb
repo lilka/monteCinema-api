@@ -9,3 +9,6 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 movies = Movie.create([{ title: 'Star Wars', description: 'movie info #1', duration_min: 123 },
                        { title: 'Lord of the Rings', description: 'movie info #2', duration_min: 143 }])
+
+cinema_halls = CinemaHall.create([{ row_number: 20, seats_in_row: 16, name: 'Lalka' },
+                                  { row_number: 10, seats_in_row: 10, name: 'Pan Tadeusz' }])

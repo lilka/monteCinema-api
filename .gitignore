@@ -28,3 +28,9 @@
 
 # Ignore DS 
 .DS_Store
+
+# Ignore application configuration
+/config/application.yml
+
+#ignore vs code set-up
+.vscode/settings.json
