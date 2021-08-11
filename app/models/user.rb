@@ -1,7 +1,9 @@
-# frozen_string_literal: true
-
 class User < ApplicationRecord
-  belongs_to :role
-  has_many :reservations, dependent: :destroy
-  validates_associated :reservations
+  # Include default devise modules. Others available are:
+  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+  devise :database_authenticatable, :registerable,
+         :recoverable, :rememberable, :validatable
+  has_many :reservations
+  has_one :role
+
 end
