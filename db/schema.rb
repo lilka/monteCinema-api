@@ -10,17 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_11_110222) do
+ActiveRecord::Schema.define(version: 2021_08_11_143547) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "cinema_halls", force: :cascade do |t|
-    t.integer "row_number"
-    t.integer "seats_in_row"
     t.string "name", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "number_of_seats"
   end
 
   create_table "movies", force: :cascade do |t|
@@ -62,12 +61,12 @@ ActiveRecord::Schema.define(version: 2021_08_11_110222) do
   end
 
   create_table "seats", force: :cascade do |t|
-    t.bigint "cinema_hall_id", null: false
     t.integer "row"
     t.integer "number"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["cinema_hall_id"], name: "index_seats_on_cinema_hall_id"
+    t.bigint "screening_id", null: false
+    t.index ["screening_id"], name: "index_seats_on_screening_id"
   end
 
   create_table "ticket_types", force: :cascade do |t|
@@ -105,7 +104,7 @@ ActiveRecord::Schema.define(version: 2021_08_11_110222) do
   add_foreign_key "roles", "users"
   add_foreign_key "screenings", "cinema_halls"
   add_foreign_key "screenings", "movies"
-  add_foreign_key "seats", "cinema_halls"
+  add_foreign_key "seats", "screenings"
   add_foreign_key "tickets", "reservations"
   add_foreign_key "tickets", "seats"
   add_foreign_key "tickets", "ticket_types"

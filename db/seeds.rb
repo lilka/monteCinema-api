@@ -7,8 +7,12 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-movies = Movie.create([{ title: 'Star Wars', description: 'movie info #1', duration_min: 123 },
-                       { title: 'Lord of the Rings', description: 'movie info #2', duration_min: 143 }])
+#movies = Movie.create([{ title: 'Star Wars', description: 'movie info #1', duration_min: 123 },
+#                      { title: 'Lord of the Rings', description: 'movie info #2', duration_min: 143 }])
 
-cinema_halls = CinemaHall.create([{ row_number: 20, seats_in_row: 16, name: 'Lalka' },
-                                  { row_number: 10, seats_in_row: 10, name: 'Pan Tadeusz' }])
+#cinema_halls = CinemaHall.create([{ number_of_seats: 100, name: 'Krolewna sniezka' },
+#                                 {  number_of_seats: 200, name: 'Puchatek'}])
+
+screenings = Screening.create([{cinema_hall_id: 8, movie_id: 1, start_time: 17:00, date:  2021-08-21}])
+
+
