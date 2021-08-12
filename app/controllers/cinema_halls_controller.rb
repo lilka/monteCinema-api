@@ -47,6 +47,6 @@ class CinemaHallsController < ApplicationController
   end
 
   def cinema_hall_params
-    params.required(:cinema_hall).permit(:row_number, :seats_in_row, :name)
+    params.required(:cinema_hall).permit(:number_of_seats, :name)
   end
 end
