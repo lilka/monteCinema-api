@@ -1,28 +1,35 @@
 # frozen_string_literal: true
 
-class ReservationController < ApplicationController 
-  before_action :set_reservations, only:%i[show]
+class ReservationsController < ApplicationController
+  before_action :set_reservations, only: %i[show]
 
+  def index
+    reservations = Reservation.all
 
-  def show
-    render json: @reservations
+    render json: reservations
   end
 
-  def create 
-    @screening = Screening.find(params[:screening_id])
-    if @screening.number_of_seats > 0 
-      @reservation = @screening.reservations.create({status: "pending" , paid: false})
-      @screening.number_of_seats--
-    else
-      
+  def show
+    render json: @reservation
+  end
+
+  def create
+    screening = Screening.find(reservation_params[:screening_id])
+    cinema_hall = CinemaHall.find(screening[:cinema_hall_id])
+
+    if cinema_hall[:number_of_seats].positive?
+      reservation = Reservation.create!({ status: 'pending', paid: false, screening_id: 1, user_id: nil })
+      cinema_hall.decrement!(:number_of_seats)
     end
+    render json: reservation
+  end
+
   private
-    def set_reservations
-      @reservation = Reservation.find(params[:id])
-    end  
+  def set_reservations
+    @reservation = Reservation.find(params[:id])
+  end
 
-    def reservation_params
-      params.require(:reservation).permit(:status, :paid)
-    end
-end 
-
+  def reservation_params
+    params.require(:reservation).permit(:status, :paid, :screening_id)
+  end
+end

@@ -14,5 +14,7 @@ class ChangeOptionalityOfAttributes < ActiveRecord::Migration[6.1]
     change_column_null(:screenings, :date, true)
     change_column_null(:screenings, :movie_id, true)
     change_column_null(:screenings, :cinema_hall_id, true)
+
+    change_column_null(:reservation, :user_id, true)
   end
 end

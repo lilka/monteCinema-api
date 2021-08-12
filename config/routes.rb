@@ -5,5 +5,5 @@ Rails.application.routes.draw do
   resources :movies, only: %i[index show]
   resources :cinema_halls, only: %i[index show update create destroy]
   resources :screenings, only: %i[index show update create]
-  resources :reservation, only: %i[index show]
+  resources :reservations, only: %i[index show create]
 end

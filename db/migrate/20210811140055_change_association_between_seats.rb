@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ChangeAssociationBetweenSeats < ActiveRecord::Migration[6.1]
   def change
     remove_reference :seats, :cinema_hall

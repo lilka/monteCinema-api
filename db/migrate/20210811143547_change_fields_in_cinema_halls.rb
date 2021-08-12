@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ChangeFieldsInCinemaHalls < ActiveRecord::Migration[6.1]
   def change
     remove_column :cinema_halls, :seats_in_row

@@ -1,20 +1,21 @@
 # frozen_string_literal: true
 
 class ScreeningsController < ApplicationController
-  before_action :set_screening, only:%i[show, update]
-
-
   def index
-    @screenings = Screening.all
-
+    @screenings = Screening.all.map do |screening|
+      screening_hash(screening)
+    end
     render json: @screenings
   end
-  
+
   def show
-    render json: @screening
+    screening = Screening.find(params[:id])
+    transformed_screening = screening_hash(screening)
+    render json: transformed_screening
   end
 
-  def update 
+  def update
+    screening = Screening.find(params[:id])
     if screening.update(screening_params)
       render json: @screening
     else
@@ -22,9 +23,9 @@ class ScreeningsController < ApplicationController
     end
   end
 
-  def create 
+  def create
     @screening = Screening.new(screening_params)
-    
+
     if @screening.save
       render json: @screening, status: :created, location: @screening
     else
@@ -33,12 +34,17 @@ class ScreeningsController < ApplicationController
   end
 
   private
-  def set_screening
-    @screening = Screening.find(params[:id])
-  end
 
   def screening_params
     params.required(:screening).permit(:movie_id, :cinema_hall_id, :start_time, :date)
   end
-end
 
+  def screening_hash(screening)
+    {
+      movie_title: screening.movie.title,
+      cinema_hall: screening.cinema_hall.name,
+      start_time: screening.start_time,
+      date: screening.date
+    }
+  end
+end
