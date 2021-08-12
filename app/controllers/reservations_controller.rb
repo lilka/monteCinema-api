@@ -16,12 +16,14 @@ class ReservationsController < ApplicationController
   def create
     screening = Screening.find(reservation_params[:screening_id])
     cinema_hall = CinemaHall.find(screening[:cinema_hall_id])
-
-    if cinema_hall[:number_of_seats].positive?
-      reservation = Reservation.create!({ status: 'pending', paid: false, screening_id: 1, user_id: nil })
-      cinema_hall.decrement!(:number_of_seats)
+    seats_amount = reservation_params[:seats_amount].to_i
+    if (cinema_hall[:number_of_seats] - seats_amount).positive?
+      reservation = Reservation.create!({ status: 'pending', paid: false, screening_id: 1, user_id: nil, seats_amount: seats_amount})
+      cinema_hall.decrement!(:number_of_seats, seats_amount)
+      render json: reservation
+    else
+    
     end
-    render json: reservation
   end
 
   private
@@ -30,6 +32,6 @@ class ReservationsController < ApplicationController
   end
 
   def reservation_params
-    params.require(:reservation).permit(:status, :paid, :screening_id)
+    params.require(:reservation).permit(:status, :paid, :screening_id, :seats_amount)
   end
 end
