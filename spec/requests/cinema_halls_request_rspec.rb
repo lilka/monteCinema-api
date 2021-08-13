@@ -10,6 +10,14 @@ RSpec.describe 'CinemaHalls', type: :request do
       get '/cinema_halls'
       expect(response).to have_http_status(200)
     end
+
+    it 'returns not empty array' do
+      get '/cinema_halls'
+      json = JSON.parse(response.body)
+
+      expect(json).to eq([{ 'id' => cinema_hall.id, 'name' => cinema_hall.name,
+                            'number_of_seats' => cinema_hall.number_of_seats }])
+    end
   end
 
   describe 'POST /cinema_halls' do
