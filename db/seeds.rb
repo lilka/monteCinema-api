@@ -7,8 +7,4 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-movies = Movie.create([{ title: 'Star Wars', description: 'movie info #1', duration_min: 123 },
-                       { title: 'Lord of the Rings', description: 'movie info #2', duration_min: 143 }])
-
-cinema_halls = CinemaHall.create([{ row_number: 20, seats_in_row: 16, name: 'Lalka' },
-                                  { row_number: 10, seats_in_row: 10, name: 'Pan Tadeusz' }])
+screenings = Screening.create([{ cinema_hall_id: 15, start_time: 17.00, date: Time.zone.now.to_s(:db) }])
