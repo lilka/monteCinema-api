@@ -9,9 +9,10 @@ module Jsonapi
     # GET /jsonapi/cinema_halls
     def index
       allowed = %i[name number_of_seats]
-
+      
       jsonapi_filter(CinemaHall.all, allowed) do |filtered|
         render jsonapi: filtered.result
+         
       end
     end
 
@@ -49,7 +50,7 @@ module Jsonapi
     private
 
     def set_cinema_halls
-      @cinema_hall = cinema_hall_hash(CinemaHall.find(params[:id]))
+      @cinema_hall = CinemaHall.find(params[:id])
     end
 
     def cinema_hall_params
