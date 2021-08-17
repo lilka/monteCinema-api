@@ -6,4 +6,5 @@ Rails.application.routes.draw do
   resources :cinema_halls, only: %i[index show update create destroy]
   resources :screenings, only: %i[index show update create]
   resources :reservations, only: %i[index show create]
+  resources :seats, only: %i[index show]
 end
