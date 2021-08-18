@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class ScreeningsController < ApplicationController
+
   def index
     @screenings = Screening.all.map do |screening|
       screening_hash(screening)
@@ -24,20 +25,23 @@ class ScreeningsController < ApplicationController
   end
 
   def create
-    @screening = Screening.new(screening_params)
-
-    if @screening.save
+    Screening.transaction do 
+      @screening = Screening.create!(screening_params)
       generate_seat(@screening)
-      render json: @screening, status: :created, location: @screening
-    else
-      render json: @screening.errors, status: :unprocessable_entity
     end
-  end
+    render json: screening_hash(@screening), status: :created, location: @screening
+
+    rescue => e 
+      render status: :bad_request, json: {errors: [e]}  
+ end
+
+ def find(id)
+  return Screening.find(id)
+ end
 
   private
-
   def screening_params
-    params.permit(:movie_id, :cinema_hall_id, :start_time, :date)
+    params.permit(:movie_id, :cinema_hall_id, :start_time)
   end
 
   def screening_hash(screening)
@@ -45,7 +49,7 @@ class ScreeningsController < ApplicationController
       movie_title: screening.movie.title,
       cinema_hall: screening.cinema_hall.name,
       start_time: screening.start_time,
-    
+      seats: Seat.where(screening_id: screening.id)
     }
   end
 
@@ -61,7 +65,7 @@ class ScreeningsController < ApplicationController
     when 20
       fill_seats(5, 4, screening.id)
     else
-      'Error: invalid number of seats'
+       raise 'Error: invalid number of seats'
     end
   end
 

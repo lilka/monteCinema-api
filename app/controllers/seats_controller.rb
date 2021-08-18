@@ -18,6 +18,7 @@ class SeatsController < ApplicationController
   def destroy
     seat = Seat.find(params[:id])
     seat.destroy
+    return head :no_content
   end
 
   private

@@ -39,10 +39,10 @@ class CinemaHallsController < ApplicationController
   def destroy
     cinema_hall = CinemaHall.find(params[:id])
     cinema_hall.destroy
+    render head :no_content
   end
 
   private
-
   def set_cinema_halls
     @cinema_hall = cinema_hall_hash(CinemaHall.find(params[:id]))
   end
