@@ -45,7 +45,7 @@ class ScreeningsController < ApplicationController
       movie_title: screening.movie.title,
       cinema_hall: screening.cinema_hall.name,
       start_time: screening.start_time,
-      date: screening.date
+    
     }
   end
 

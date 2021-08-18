@@ -34,3 +34,6 @@
 
 #ignore vs code set-up
 .vscode/settings.json
+
+#ignore rubocop settings
+.rubocop.yml

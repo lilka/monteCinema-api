@@ -38,7 +38,6 @@ CinemaHall.create(name: Faker::Fantasy::Tolkien.character, number_of_seats: 50)
 CinemaHall.create(name: Faker::Fantasy::Tolkien.character, number_of_seats: 20)
 
 9.times do
-  screening = Screening.create(cinema_hall_id: CinemaHall.ids.sample, movie_id: Movie.ids.sample, start_time: 17,
-                               date: Faker::Date.in_date_period)
+  screening = Screening.create(cinema_hall_id: CinemaHall.ids.sample, movie_id: Movie.ids.sample, start_time: Faker::Time.between_dates(from: Date.today , to: Date.today + 7, period: :all))
   generate_seat(screening)
 end
