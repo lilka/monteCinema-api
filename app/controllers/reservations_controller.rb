@@ -16,23 +16,23 @@ class ReservationsController < ApplicationController
   def create
     screening = Screening.find(reservation_params[:screening_id])
     seats_number_to_reserve = reservation_params[:seats_amount].to_i
-    reservation = Reservation.new({ status: 'pending', paid: false, screening_id: screening.id, user_id: nil})
+    reservation = Reservation.new({ status: 'pending', paid: false, screening_id: screening.id, user_id: nil })
     if (avaliable_seats(screening.id).count - seats_number_to_reserve).positive?
       if resevation.save
         assign_seats(seats_number_to_reserve, screening.id)
         render json: reservation_hash(reservation)
-      else 
+      else
         render json: @reservation.errors, status: :unprocessable_entity
       end
     else
-         render json: { message: "No more seats available for this screening"}
+      render json: { message: 'No more seats available for this screening' }
     end
   end
 
   private
-  def 
 
-  def set_reservation
+  def
+  def(_set_reservation)
     @reservation = Reservation.find(params[:id])
   end
 
@@ -50,18 +50,17 @@ class ReservationsController < ApplicationController
 
   def reservation_hash(reservation)
     {
-      status: reservation.status, 
-      paid: reservation.paid, 
+      status: reservation.status,
+      paid: reservation.paid,
       screening: reservation.screening.movie.title,
       seat: reservation.seats
     }
-  end 
+  end
 
   def assign_seats(seats_number_to_reserve, screening_id)
     seats_number_to_reserve.times do
       seat = avaliable_seats(screening_id).first
       reservation.seats.push(seat)
-  end
-
+    end
   end
 end
