@@ -18,9 +18,9 @@ class ScreeningsController < ApplicationController
   def update
     screening = Screening.find(params[:id])
     if screening.update(screening_params)
-      render json: @screening
+      render json: screening
     else
-      render json: @screening.errors, status: :unprocessable_entity
+      render json: screening.errors, status: :unprocessable_entity
     end
   end
 
@@ -46,10 +46,10 @@ class ScreeningsController < ApplicationController
 
   def screening_hash(screening)
     {
+      id: screening.id,
       movie_title: screening.movie.title,
       cinema_hall: screening.cinema_hall.name,
       start_time: screening.start_time,
-      seats: Seat.where(screening_id: screening.id)
     }
   end
 

@@ -21,8 +21,8 @@ class SeatsController < ApplicationController
     return head :no_content
   end
 
-  private
 
+  private
   def set_seats
     @seat = Seat.find(params[:id])
   end

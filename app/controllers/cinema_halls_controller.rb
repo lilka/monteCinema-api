@@ -29,7 +29,7 @@ class CinemaHallsController < ApplicationController
   # PATCH/PUT /cinema_halls/1
   def update
     if @cinema_hall.update(cinema_hall_params)
-      render json: cinema_hall_hash(@cinema_hall)
+      render json: @cinema_hall 
     else
       render json: @cinema_hall.errors, status: :unprocessable_entity
     end

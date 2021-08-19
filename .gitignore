@@ -37,3 +37,4 @@
 
 #ignore rubocop settings
 .rubocop.yml
+coverage
