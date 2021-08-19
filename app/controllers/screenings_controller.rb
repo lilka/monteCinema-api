@@ -27,7 +27,7 @@ class ScreeningsController < ApplicationController
   def create
     Screening.transaction do 
       @screening = Screening.create!(screening_params)
-      generate_seat(@screening)
+      GenerateSeats.new(params[:cinema_hall_id], @screening.id).call
     end
     render json: screening_hash(@screening), status: :created, location: @screening
 
@@ -51,29 +51,5 @@ class ScreeningsController < ApplicationController
       cinema_hall: screening.cinema_hall.name,
       start_time: screening.start_time,
     }
-  end
-
-  def generate_seat(screening)
-    cinema_hall = CinemaHall.find(screening[:cinema_hall_id])
-    case cinema_hall[:number_of_seats]
-    when 200
-      fill_seats(20, 10, screening.id)
-    when 100
-      fill_seats(10, 10, screening.id)
-    when 50
-      fill_seats(5, 10, screening.id)
-    when 20
-      fill_seats(5, 4, screening.id)
-    else
-       raise 'Error: invalid number of seats'
-    end
-  end
-
-  def fill_seats(rows, seats_in_row, screening_id)
-    (1...rows + 1).each do |i|
-      (1...seats_in_row + 1).each do |j|
-        Seat.create(row: j, number: i, screening_id: screening_id)
-      end
-    end
   end
 end

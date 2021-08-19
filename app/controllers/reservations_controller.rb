@@ -19,7 +19,7 @@ class ReservationsController < ApplicationController
     if(is_enought_seats(screening.id, seats_number_to_reserve))
       Reservation.transaction do 
         @reservation = Reservation.create!({ status: 'pending', paid: false, screening_id: screening.id, user_id: nil })
-        assign_seats(seats_number_to_reserve, screening.id)
+        AssignSeats.new(@reservation.id, seats_number_to_reserve, screening.id).call
       end
       render json: reservation_hash(@reservation)
     else 
@@ -36,16 +36,9 @@ class ReservationsController < ApplicationController
     params.permit(:screening_id, :seats_amount)
   end
 
-  def reserved_seats(screening_id)
-    Seat.where(screening_id: screening_id).joins(:reservations_seats)
-  end
-
-  def avaliable_seats(screening_id)
-    Seat.where(screening_id: screening_id) - reserved_seats(screening_id)
-  end
 
   def is_enought_seats(screening_id, seats_to_reserve)
-    return (avaliable_seats(screening_id).count - seats_to_reserve).positive?
+    return (AvaliableSeats.new(screening_id).call.count - seats_to_reserve).positive?
   end
 
   def reservation_hash(reservation)
@@ -57,12 +50,5 @@ class ReservationsController < ApplicationController
       cinema_hall: reservation.screening.cinema_hall.name,
       seats: reservation.seats
     }
-  end
-
-  def assign_seats(seats_number_to_reserve, screening_id)
-    seats_number_to_reserve.times do
-      seat = avaliable_seats(screening_id).first
-      @reservation.seats.push(seat)
-    end
   end
 end
