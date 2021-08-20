@@ -3,9 +3,8 @@
 require 'rails_helper'
 
 RSpec.describe('Screenings', type: :request) do
-  
   describe 'GET /screenings/:id' do
-    let(:screening) {create(:screening)}
+    let(:screening) { create(:screening) }
 
     subject(:show_screening) do
       get "/screenings/#{screening.id}"
@@ -18,7 +17,7 @@ RSpec.describe('Screenings', type: :request) do
   describe 'GET /screenings' do
     let(:screening) { create(:screening) }
 
-    before do 
+    before do
       screening
     end
 
@@ -35,15 +34,15 @@ RSpec.describe('Screenings', type: :request) do
       get_screenings
       json = JSON.parse(response.body)
       expect(json).to eq(
-          [
-            {
-              'id' => screening.id,
-              'cinema_hall' => screening.cinema_hall.name,
-              'movie_title' => screening.movie.title,
-              'start_time' => '2021-08-18T00:00:00.000Z'
-            }
-          ]
-        )
+        [
+          {
+            'id' => screening.id,
+            'cinema_hall' => screening.cinema_hall.name,
+            'movie_title' => screening.movie.title,
+            'start_time' => '2021-08-18T00:00:00.000Z'
+          }
+        ]
+      )
     end
   end
 
@@ -77,13 +76,13 @@ RSpec.describe('Screenings', type: :request) do
         screening = Screening.last
         json = JSON.parse(response.body)
         expect(json).to eq(
-            {
-              'id' => screening.id,
-              'cinema_hall' => screening.cinema_hall.name,
-              'movie_title' => screening.movie.title,
-              'start_time' => '2021-08-18T00:00:00.000Z'
-            }
-          )
+          {
+            'id' => screening.id,
+            'cinema_hall' => screening.cinema_hall.name,
+            'movie_title' => screening.movie.title,
+            'start_time' => '2021-08-18T00:00:00.000Z'
+          }
+        )
       end
 
       it 'record created in database' do

@@ -6,7 +6,7 @@ class SeatsController < ApplicationController
 
   def index
     seats = @screening.seats.all
-    render json: seats.order("row, number")
+    render json: seats.order('row, number')
   end
 
   def show
@@ -15,15 +15,16 @@ class SeatsController < ApplicationController
 
   def destroy
     @seat.destroy
-    return head :no_content
+    head :no_content
   end
 
   private
+
   def set_seat
     @seat = @screening.seats.find(params[:id])
   end
 
   def get_screening
-   @screening = Screening.find(params[:screening_id])
+    @screening = Screening.find(params[:screening_id])
   end
 end

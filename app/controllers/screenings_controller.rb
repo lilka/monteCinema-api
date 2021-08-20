@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class ScreeningsController < ApplicationController
-
   def index
     @screenings = Screening.all.map do |screening|
       screening_hash(screening)
@@ -25,21 +24,21 @@ class ScreeningsController < ApplicationController
   end
 
   def create
-    Screening.transaction do 
+    Screening.transaction do
       @screening = Screening.create!(screening_params)
       GenerateSeats.new(params[:cinema_hall_id], @screening.id).call
     end
     render json: screening_hash(@screening), status: :created, location: @screening
+  rescue StandardError => e
+    render status: :bad_request, json: { errors: [e] }
+  end
 
-    rescue => e 
-      render status: :bad_request, json: {errors: [e]}  
- end
-
- def find(id)
-  return Screening.find(id)
- end
+  def find(id)
+    Screening.find(id)
+  end
 
   private
+
   def screening_params
     params.permit(:movie_id, :cinema_hall_id, :start_time)
   end
@@ -49,8 +48,7 @@ class ScreeningsController < ApplicationController
       id: screening.id,
       movie_title: screening.movie.title,
       cinema_hall: screening.cinema_hall.name,
-      start_time: screening.start_time,
+      start_time: screening.start_time
     }
   end
-
 end

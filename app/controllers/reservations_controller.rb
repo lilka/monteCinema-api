@@ -16,32 +16,29 @@ class ReservationsController < ApplicationController
   def create
     screening = Screening.find(reservation_params[:screening_id])
     seat_ids = seats_to_array(reservation_params[:seat_ids])
-    byebug
-    #seats_number_to_reserve = reservation_params[:seats_amount].to_i
-    if(is_enought_seats(screening.id, seat_ids.count))
-      Reservation.transaction do 
+    if is_enought_seats(screening.id, seat_ids.count)
+      Reservation.transaction do
         @reservation = Reservation.create!({ status: 'pending', paid: false, screening_id: screening.id, user_id: nil })
-        AssignSeats.new(@reservation.id, seats_number_to_reserve, screening.id).call
+        AssignSeats.new(@reservation.id, seat_ids, screening.id).call
       end
       render json: reservation_hash(@reservation)
-    else 
-      render json: {message: "No more pleaces for this screening"}
+    else
+      render json: { message: 'No more pleaces for this screening' }
     end
   end
 
   private
+
   def set_reservation
     @reservation = Reservation.find(params[:id])
   end
 
   def reservation_params
-    #params.permit(:screening_id, :seats_amount)
-    params.permit(:screening_id, :seat_ids)
+    params.permit(:screening_id, seat_ids: [])
   end
 
-
   def is_enought_seats(screening_id, seats_to_reserve)
-    return (AvaliableSeats.new(screening_id).call.count - seats_to_reserve).positive?
+    (Seat.all.count - ReservedSeats.new(screening_id).call.count - seats_to_reserve).positive?
   end
 
   def reservation_hash(reservation)
@@ -56,6 +53,6 @@ class ReservationsController < ApplicationController
   end
 
   def seats_to_array(seat_ids)
-    return seat_ids.split(",").map {|seat| seat.to_i}
+    seat_ids.map(&:to_i)
   end
 end

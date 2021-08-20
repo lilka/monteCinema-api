@@ -1,16 +1,16 @@
- # frozen_string_literal: true
+# frozen_string_literal: true
 
 require 'rails_helper'
 
 RSpec.describe('Reservations', type: :request) do
-  describe 'POST/reservations' do 
+  describe 'POST/reservations' do
     let(:screening) { create(:screening) }
     before do
       GenerateSeats.new(screening.cinema_hall_id, screening.id).call
     end
 
     context 'reservation is created' do
-      subject(:create_reservation) do 
+      subject(:create_reservation) do
         post '/reservations', params: { screening_id: screening.id, seats_amount: 2 }
       end
 
@@ -19,44 +19,43 @@ RSpec.describe('Reservations', type: :request) do
         expect(response).to have_http_status(200)
       end
 
-      it 'record created in database' do 
-        expect do 
+      it 'record created in database' do
+        expect do
           create_reservation
         end.to change {
           Reservation.count
         }.by(1)
       end
 
-      it 'seats assign to reservation' do 
+      it 'seats assign to reservation' do
         create_reservation
-        reservation = Reservation.last 
+        reservation = Reservation.last
         expect(reservation.seats.count).to eq(2)
-      end 
+      end
     end
- 
 
-    context 'reservation falis' do 
+    context 'reservation falis' do
       subject(:create_reservation_with_wrong_params) do
         post '/reservations', params: { screening_id: screening.id, seats_amount: 250 }
       end
 
-      it 'returns error message' do 
-          create_reservation_with_wrong_params
-          json = JSON.parse(response.body)
-          expect(json).to eq({"message" => "No more pleaces for this screening"})
+      it 'returns error message' do
+        create_reservation_with_wrong_params
+        json = JSON.parse(response.body)
+        expect(json).to eq({ 'message' => 'No more pleaces for this screening' })
       end
     end
   end
 
-  describe 'GET reservations/' do 
+  describe 'GET reservations/' do
     let(:screening) { create(:screening) }
-    let(:reservation) {create(:reservation)}
+    let(:reservation) { create(:reservation) }
     before do
       GenerateSeats.new(screening.cinema_hall_id, screening.id).call
       AssignSeats.new(reservation.id, 2, screening.id).call
     end
 
-    subject(:get_reservations) do 
+    subject(:get_reservations) do
       get '/reservations'
     end
 
@@ -66,5 +65,3 @@ RSpec.describe('Reservations', type: :request) do
     end
   end
 end
-
-    
