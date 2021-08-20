@@ -38,3 +38,4 @@
 #ignore rubocop settings
 .rubocop.yml
 coverage
+.DS_Store
