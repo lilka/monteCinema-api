@@ -26,4 +26,5 @@ class SeatsController < ApplicationController
   def set_seats
     @seat = Seat.find(params[:id])
   end
+
 end

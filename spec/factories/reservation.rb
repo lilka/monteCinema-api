@@ -1,8 +1,8 @@
 FactoryBot.define do
-  factory :reservations do
+  factory :reservation do
     screening
     paid { false } 
     status { 'pending'}
-    user
+    user { nil } 
   end
 end

@@ -34,8 +34,7 @@ RSpec.describe('Screenings', type: :request) do
     it 'returns not empty response' do
       get_screenings
       json = JSON.parse(response.body)
-      expect(json).to(
-        eq(
+      expect(json).to eq(
           [
             {
               'id' => screening.id,
@@ -45,7 +44,6 @@ RSpec.describe('Screenings', type: :request) do
             }
           ]
         )
-      )
     end
   end
 
@@ -78,8 +76,7 @@ RSpec.describe('Screenings', type: :request) do
         create_screening
         screening = Screening.last
         json = JSON.parse(response.body)
-        expect(json).to(
-          eq(
+        expect(json).to eq(
             {
               'id' => screening.id,
               'cinema_hall' => screening.cinema_hall.name,
@@ -87,15 +84,14 @@ RSpec.describe('Screenings', type: :request) do
               'start_time' => '2021-08-18T00:00:00.000Z'
             }
           )
-        )
       end
 
       it 'record created in database' do
         expect do
           create_screening
-        end.to(change do
+        end.to change {
           Screening.count
-        end.by(1))
+        }.by(1)
       end
 
       it 'seats created in database' do
