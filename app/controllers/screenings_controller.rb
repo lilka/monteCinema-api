@@ -52,4 +52,5 @@ class ScreeningsController < ApplicationController
       start_time: screening.start_time,
     }
   end
+
 end

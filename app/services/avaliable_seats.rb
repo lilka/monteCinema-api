@@ -4,7 +4,7 @@ class AvaliableSeats < ApplicationController
   end
 
   def call 
-     return Seat.where(screening_id: @screening_id) - reserved_seats(@screening_id)
+     Seat.where(screening_id: @screening_id) - reserved_seats(@screening_id)
   end
   private 
 
