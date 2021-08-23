@@ -48,7 +48,6 @@ class ReservationsController < ApplicationController
       screening: reservation.screening.movie.title,
       start_time: reservation.screening.start_time,
       cinema_hall: reservation.screening.cinema_hall.name,
-      seats: reservation.seats
     }
   end
 

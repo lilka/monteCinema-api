@@ -12,6 +12,6 @@ class ReservedSeats < ApplicationController
   private
 
   def reserved_seats(screening_id)
-    Seat.where(screening_id: screening_id).joins(:reservations_seats).ids
+    ReservationsSeats.select(:seat_id).joins(:seat).where("seats.screening_id = ?", screening_id)
   end
 end

@@ -20,7 +20,7 @@ class CinemaHallsController < ApplicationController
     @cinema_hall = CinemaHall.new(cinema_hall_params)
 
     if @cinema_hall.save
-      render json: cinema_hall_hash(@cinema_hall), status: :created, location: @cinema_hall
+      render json: cinema_hall_hash(@cinema_hall), status: :created
     else
       render json: @cinema_hall.errors, status: :unprocessable_entity
     end

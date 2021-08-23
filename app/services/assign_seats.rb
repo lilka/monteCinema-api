@@ -2,7 +2,7 @@
 
 class AssignSeats
   def initialize(reservation_id, seat_ids, screening_id)
-    @reservation = Reservation.find(reservation_id)
+    @reservation_id = reservation_id
     @seat_ids = seat_ids
     @screening_id = screening_id
   end
@@ -10,8 +10,7 @@ class AssignSeats
   def call
     if are_seats_free == false
       @seat_ids.each do |seat_id|
-        seat = Seat.find(seat_id)
-        @reservation.seats.push(seat)
+        ReservationsSeats.create({seat_id: seat_id, reservation_id: @reservation_id})
       end
     else
       raise 'Error: seat not avaliable'

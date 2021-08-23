@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class SeatsController < ApplicationController
-  before_action :get_screening
+  before_action :get_screening, only: %i[index]
   before_action :set_seat, only: %i[show destroy]
 
   def index

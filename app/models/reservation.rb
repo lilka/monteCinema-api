@@ -3,5 +3,5 @@
 class Reservation < ApplicationRecord
   belongs_to :screening
   belongs_to :user, optional: true
-  has_and_belongs_to_many :seats
+  has_many :seats, :through => :reservations_seats
 end
