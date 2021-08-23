@@ -8,10 +8,11 @@ RSpec.describe('Reservations', type: :request) do
     before do
       GenerateSeats.new(screening.cinema_hall_id, screening.id).call
     end
+    let(:seat_ids) { screening.seats.take(2).map(&:id) }
 
     context 'reservation is created' do
       subject(:create_reservation) do
-        post '/reservations', params: { screening_id: screening.id, seats_amount: 2 }
+        post '/reservations', params: { screening_id: screening.id, seat_ids: seat_ids }
       end
 
       it 'returns http status' do
@@ -36,7 +37,7 @@ RSpec.describe('Reservations', type: :request) do
 
     context 'reservation falis' do
       subject(:create_reservation_with_wrong_params) do
-        post '/reservations', params: { screening_id: screening.id, seats_amount: 250 }
+        post '/reservations', params: { screening_id: screening.id, seat_ids: screening.seats.ids }
       end
 
       it 'returns error message' do
@@ -51,8 +52,9 @@ RSpec.describe('Reservations', type: :request) do
     let(:screening) { create(:screening) }
     let(:reservation) { create(:reservation) }
     before do
+      seat_id = screening.seats.first.to_a
       GenerateSeats.new(screening.cinema_hall_id, screening.id).call
-      AssignSeats.new(reservation.id, 2, screening.id).call
+      AssignSeats.new(reservation.id, seat_id, screening.id).call
     end
 
     subject(:get_reservations) do

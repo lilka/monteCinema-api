@@ -16,7 +16,7 @@ class ReservationsController < ApplicationController
   def create
     screening = Screening.find(reservation_params[:screening_id])
     seat_ids = seats_to_array(reservation_params[:seat_ids])
-    if is_enought_seats(screening.id, seat_ids.count)
+    if enought_seats?(screening.id, seat_ids.count)
       Reservation.transaction do
         @reservation = Reservation.create!({ status: 'pending', paid: false, screening_id: screening.id, user_id: nil })
         AssignSeats.new(@reservation.id, seat_ids, screening.id).call
@@ -37,7 +37,7 @@ class ReservationsController < ApplicationController
     params.permit(:screening_id, seat_ids: [])
   end
 
-  def is_enought_seats(screening_id, seats_to_reserve)
+  def enought_seats?(screening_id, seats_to_reserve)
     (Seat.all.count - ReservedSeats.new(screening_id).call.count - seats_to_reserve).positive?
   end
 
