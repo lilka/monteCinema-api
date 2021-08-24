@@ -1,39 +1,37 @@
 # frozen_string_literal: true
 
 class CinemaHallsController < ApplicationController
-  before_action :set_cinema_halls, only: %i[show update]
-  # GET /cinema_halls
+
+
   def index
-    @cinema_halls = CinemaHall.all.map do |cinema_hall|
-      cinema_hall_hash(cinema_hall)
-    end
-    render json: @cinema_halls
+    cinema_halls = CinemaHalls::UseCases::ShowAll.new.call
+    render json: CinemaHalls::Representers::Multiple.new(cinema_halls).call
   end
 
-  # GET /cinema_halls/1
   def show
-    render json: @cinema_hall
+     cinema_hall = CinemaHalls::UseCases::Show.new(id: params[:id]).call
+     render json: CinemaHalls::Representers::Single.new(cinema_hall).call
   end
 
-  # POST /cinema_halls
   def create
-    @cinema_hall = CinemaHall.new(cinema_hall_params)
-
-    if @cinema_hall.save
-      render json: cinema_hall_hash(@cinema_hall), status: :created, location: @cinema_hall
+    cinema_hall = CinemaHalls::UseCases::Create.new(params: cinema_hall_params).call
+    if cinema_hall.valid?
+      render CinemaHalls::Representers::Single.new(cinema_hall).call, status: :created
     else
-      render json: @cinema_hall.errors, status: :unprocessable_entity
+      render json: CinemaHall.errors, status: :unprocessable_entity
     end
   end
 
-  # PATCH/PUT /cinema_halls/1
   def update
-    if @cinema_hall.update(cinema_hall_params)
-      render json: @cinema_hall
+    updated_cinema_hall = CinemaHalls::UseCases::Update.new(params: cinema_hall_params, id: params[:id]).call
+    if updated_cinema_hall.errors.any?
+      render updated_cinema_hall.errors, status: :unprocessable_entity
     else
-      render json: @cinema_hall.errors, status: :unprocessable_entity
+      render CinemaHalls::Representers::Single.new(updated_cinema_hall), status: :created
     end
   end
+
+ 
 
   # DELETE /cinema_halls/1
   def destroy
@@ -43,19 +41,7 @@ class CinemaHallsController < ApplicationController
 
   private
 
-  def set_cinema_halls
-    @cinema_hall = cinema_hall_hash(CinemaHall.find(params[:id]))
-  end
-
   def cinema_hall_params
     params.permit(:number_of_seats, :name)
-  end
-
-  def cinema_hall_hash(cinema_hall)
-    {
-      id: cinema_hall.id,
-      name: cinema_hall.name,
-      number_of_seats: cinema_hall.number_of_seats
-    }
   end
 end
