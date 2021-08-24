@@ -6,7 +6,7 @@ module Movies
       def initialize(id:, params:, repository: MovieRepository.new)
         @id = id
         @repository = repository
-        @params = params 
+        @params = params
       end
 
       def call
@@ -15,7 +15,7 @@ module Movies
         movie
       end
 
-     private
+      private
 
       attr_reader :params, :repository, :id
     end

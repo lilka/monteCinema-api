@@ -1,16 +1,14 @@
 # frozen_string_literal: true
 
 class MoviesController < ApplicationController
-
   def index
     movies = Movies::UseCases::ShowAll.new.call
     render json: Movies::Representers::Multiple.new(movies).call
   end
 
-  def show 
-  end
+  def show; end
 
-  def create 
+  def create
     movie = Movies::UseCases::Create.new(params: movie_params).call
     if movie.valid?
       render Movies::Representers::Single.new(movie).call, status: :created
@@ -28,11 +26,9 @@ class MoviesController < ApplicationController
     end
   end
 
-
   private
 
-   def movie_params
+  def movie_params
     params.permit(:title, :duration, :description)
-   end
-
+  end
 end
