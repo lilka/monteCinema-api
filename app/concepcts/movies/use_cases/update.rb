@@ -16,7 +16,7 @@ module Movies
       end
 
       private
-
+      
       attr_reader :params, :repository, :id
     end
   end

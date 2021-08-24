@@ -1,20 +1,18 @@
-# frozen_string_literal: true
-
 module Movies
   module Representers
-    class Multiple
+    class Multiple 
       def initialize(movies)
         @movies = movies
       end
 
-      def call
+      def call 
         @movies.map do |movie|
           Movies::Representers::Single.new(movie).call
         end
       end
 
-      private
-
+      private 
+      
       attr_reader :movies
     end
   end

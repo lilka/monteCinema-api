@@ -12,7 +12,8 @@ module Movies
         repository.create(params)
       end
 
-     private:
+     private
+     
       attr_reader :params, :repository
     end
   end
