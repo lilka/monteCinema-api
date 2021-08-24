@@ -4,7 +4,7 @@ module Movies
   class MovieRepository
     attr_reader :adapter
 
-    def initialize(adapter: Movies::Model)
+    def initialize(adapter: Movie)
       @adapter = adapter
     end
 
@@ -14,6 +14,10 @@ module Movies
 
     def find(id:)
       adapter.find(id)
+    end
+
+    def create(params)
+      adapter.create(params)
     end
   end
 end

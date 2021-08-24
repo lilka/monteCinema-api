@@ -1,15 +1,19 @@
 # frozen_string_literal: true
 
-module UseCases
-  module Movie
+module Movies
+  module UseCases
     class Create
-      def initialize(repository: Repositories::MovieRepository.new)
+      def initialize(params:, repository: MovieRepository.new)
         @repository = repository
+        @params = params 
       end
 
       def call
-        @repository.create!
+        repository.create(params)
       end
+
+     private:
+      attr_reader :params, :repository
     end
   end
 end
