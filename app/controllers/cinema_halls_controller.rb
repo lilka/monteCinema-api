@@ -12,12 +12,15 @@ class CinemaHallsController < ApplicationController
 
   def create
     cinema_hall = CinemaHalls::UseCases::Create.new(params: cinema_hall_params).call 
-    byebug
-    render json: CinemaHalls::Representers::Single.new(cinema_hall).call, status: :created
+    begin
+      cinema_hall.valid?
+      byebug
+      render json: CinemaHalls::Representers::Single.new(cinema_hall).call, status: :created
     rescue  ActiveRecord::RecordInvalid => e
-     render status: :bad_request, json: { errors: [e] }
-    
-  end
+      byebug
+      render status: :bad_request, json: { errors: [e] }
+    end  
+ end
 
   def update
     updated_cinema_hall = CinemaHalls::UseCases::Update.new(params: cinema_hall_params, id: params[:id]).call
