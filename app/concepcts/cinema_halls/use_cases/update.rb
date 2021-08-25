@@ -1,18 +1,18 @@
 # frozen_string_literal: true
 
-module Movies
+module CinemaHalls
   module UseCases
     class Update
-      def initialize(id:, params:, repository: MovieRepository.new)
+      def initialize(id:, params:, repository: CinemaHallRepository.new)
         @id = id
         @repository = repository
         @params = params
       end
 
       def call
-        movie = repository.find(id: id)
-        movie.update(params)
-        movie
+        cineam_hall = repository.find(id: id)
+        cineam_hall.update(params)
+        cineam_hall
       end
 
       private

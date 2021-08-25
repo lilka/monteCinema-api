@@ -85,14 +85,14 @@ RSpec.describe 'CinemaHalls', type: :request do
     context 'valid cinema_hall attributes' do
       it 'valid http status' do
         update_cinema_hall
-        expect(response).to have_http_status(200)
+        expect(response).to have_http_status(201)
       end
     end
 
     it 'valid attributes' do
       update_cinema_hall
       json = JSON.parse(response.body)
-      expect(json).to eq({ 'id' => cinema_hall.id, 'name' => cinema_hall.name, 'number_of_seats' => '150' })
+      expect(json).to eq({ 'id' => cinema_hall.id, 'name' => cinema_hall.name, 'number_of_seats' => 150 })
     end
   end
 

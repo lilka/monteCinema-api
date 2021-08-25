@@ -5,15 +5,15 @@ module Movies
     class Create
       def initialize(params:, repository: MovieRepository.new)
         @repository = repository
-        @params = params 
+        @params = params
       end
 
       def call
         repository.create(params)
       end
 
-     private
-     
+      private
+
       attr_reader :params, :repository
     end
   end

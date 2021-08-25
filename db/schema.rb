@@ -12,7 +12,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20_210_812_132_449) do
+ActiveRecord::Schema.define(version: 20_210_818_102_335) do
   # These are extensions that must be enabled in order to support this database
   enable_extension 'plpgsql'
 
@@ -38,9 +38,13 @@ ActiveRecord::Schema.define(version: 20_210_812_132_449) do
     t.datetime 'created_at', precision: 6, null: false
     t.datetime 'updated_at', precision: 6, null: false
     t.bigint 'user_id'
-    t.integer 'seats_amount'
     t.index ['screening_id'], name: 'index_reservations_on_screening_id'
     t.index ['user_id'], name: 'index_reservations_on_user_id'
+  end
+
+  create_table 'reservations_seats', id: false, force: :cascade do |t|
+    t.bigint 'reservation_id', null: false
+    t.bigint 'seat_id', null: false
   end
 
   create_table 'roles', force: :cascade do |t|
@@ -54,10 +58,9 @@ ActiveRecord::Schema.define(version: 20_210_812_132_449) do
   create_table 'screenings', force: :cascade do |t|
     t.bigint 'cinema_hall_id'
     t.bigint 'movie_id'
-    t.time 'start_time'
-    t.date 'date'
     t.datetime 'created_at', precision: 6, null: false
     t.datetime 'updated_at', precision: 6, null: false
+    t.datetime 'start_time'
     t.index ['cinema_hall_id'], name: 'index_screenings_on_cinema_hall_id'
     t.index ['movie_id'], name: 'index_screenings_on_movie_id'
   end
@@ -69,24 +72,6 @@ ActiveRecord::Schema.define(version: 20_210_812_132_449) do
     t.datetime 'updated_at', precision: 6, null: false
     t.bigint 'screening_id', null: false
     t.index ['screening_id'], name: 'index_seats_on_screening_id'
-  end
-
-  create_table 'ticket_types', force: :cascade do |t|
-    t.string 'name'
-    t.decimal 'price'
-    t.datetime 'created_at', precision: 6, null: false
-    t.datetime 'updated_at', precision: 6, null: false
-  end
-
-  create_table 'tickets', force: :cascade do |t|
-    t.bigint 'reservation_id', null: false
-    t.bigint 'ticket_type_id', null: false
-    t.bigint 'seat_id', null: false
-    t.datetime 'created_at', precision: 6, null: false
-    t.datetime 'updated_at', precision: 6, null: false
-    t.index ['reservation_id'], name: 'index_tickets_on_reservation_id'
-    t.index ['seat_id'], name: 'index_tickets_on_seat_id'
-    t.index ['ticket_type_id'], name: 'index_tickets_on_ticket_type_id'
   end
 
   create_table 'users', force: :cascade do |t|
@@ -107,7 +92,4 @@ ActiveRecord::Schema.define(version: 20_210_812_132_449) do
   add_foreign_key 'screenings', 'cinema_halls'
   add_foreign_key 'screenings', 'movies'
   add_foreign_key 'seats', 'screenings'
-  add_foreign_key 'tickets', 'reservations'
-  add_foreign_key 'tickets', 'seats'
-  add_foreign_key 'tickets', 'ticket_types'
 end

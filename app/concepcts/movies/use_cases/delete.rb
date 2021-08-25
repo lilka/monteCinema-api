@@ -6,7 +6,6 @@ module Movies
       def initialize(movie_id: movie_id, repository: MovieRepository.new)
         @repository = repository
         @movie_id = movie_id
-        
       end
 
       def call
@@ -14,7 +13,8 @@ module Movies
         repository.delete(movie)
       end
 
-    private
+      private
+
       attr_reader :movie_id, :repository
     end
   end

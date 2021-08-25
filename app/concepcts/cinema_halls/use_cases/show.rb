@@ -1,8 +1,9 @@
+# frozen_string_literal: true
 
 module CinemaHalls
   module UseCases
     class Show
-      def initialize(repository: CinemaHallRepository.new, id:)
+      def initialize(id:, repository: CinemaHallRepository.new)
         @repository = repository
         @id = id
       end
@@ -11,7 +12,7 @@ module CinemaHalls
         @repository.find(id: id)
       end
 
-      private 
+      private
 
       attr_reader :id, :repository
     end
