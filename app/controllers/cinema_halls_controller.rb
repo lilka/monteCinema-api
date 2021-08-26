@@ -2,6 +2,8 @@
 
 class CinemaHallsController < ApplicationController
   before_action :set_cinema_halls, only: %i[show update]
+  before_action :authenticate_user!
+
   # GET /cinema_halls
   def index
     @cinema_halls = CinemaHall.all.map do |cinema_hall|
