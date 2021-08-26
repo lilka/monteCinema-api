@@ -17,3 +17,11 @@ CinemaHall.create(name: Faker::Fantasy::Tolkien.character, number_of_seats: 20)
 end
 
 
+Role.create(role_name: 'client')
+Role.create(role_name: 'employee')
+Role.create(role_name: 'manager')
+
+User.create(email: "user1@test.com", password: "password1", password_confirmation: "password1", role_id: 1 )
+User.create(email: "employee@test.com", password: "password2", password_confirmation: "password2", role_id: 2 )
+
+
