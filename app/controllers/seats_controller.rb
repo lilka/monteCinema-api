@@ -5,7 +5,7 @@ class SeatsController < ApplicationController
   before_action :set_seat, only: %i[show destroy]
 
   def index
-    seats = @screening.seats.all
+    seats = @screening.seats
     render json: seats.order('row, number')
   end
 
