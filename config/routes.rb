@@ -3,6 +3,7 @@
 Rails.application.routes.draw do
   root to: 'screenings#index'
   mount_devise_token_auth_for 'User', at: 'auth'
+  
   resources :movies, only: %i[index show]
   resources :cinema_halls, only: %i[index show update create destroy]
   resources :screenings, only: %i[index show update create]
