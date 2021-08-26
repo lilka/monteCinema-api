@@ -43,7 +43,6 @@ class CinemaHallsController < ApplicationController
     cinema_hall = CinemaHall.find(params[:id])
     cinema_hall.destroy
     render head :no_content
-
   end
 
   private
