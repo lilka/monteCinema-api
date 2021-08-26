@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   resources :screenings, only: %i[index show update create]
   resources :reservations, only: %i[index show create]
   resources :seats, only: %i[index show destroy]
+  resource :sessions
 
   resources :screenings do
     resources :seats

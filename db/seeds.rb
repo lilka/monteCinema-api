@@ -15,3 +15,5 @@ CinemaHall.create(name: Faker::Fantasy::Tolkien.character, number_of_seats: 20)
   screening = Screening.create(cinema_hall_id: CinemaHall.ids.sample, movie_id: Movie.ids.sample, start_time: Faker::Time.between_dates(from: Date.today , to: Date.today + 7, period: :all))
   GenerateSeats.new(screening.cinema_hall_id, screening.id).call
 end
+
+
