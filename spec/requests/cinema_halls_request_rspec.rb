@@ -37,19 +37,19 @@ RSpec.describe 'CinemaHalls', type: :request do
 
   describe 'POST /cinema_halls' do
     context 'when authenticated' do
-    let(:cinema_hall) { create(:cinema_hall) }
-    let(:role) { create(:role) }
-    let(:user) { create(:user) }
+      let(:cinema_hall) { create(:cinema_hall) }
+      let(:role) { create(:role) }
+      let(:user) { create(:user) }
 
-    subject(:create_cinema_hall) do
-      auth_params = get_auth_params_from_login_response_headers(response)
-      post '/cinema_halls', params: { name: cinema_hall.name, number_of_seats: cinema_hall.number_of_seats },
-                            headers: auth_params
-    end
-      
+      subject(:create_cinema_hall) do
+        auth_params = get_auth_params_from_login_response_headers(response)
+        post '/cinema_halls', params: { name: cinema_hall.name, number_of_seats: cinema_hall.number_of_seats },
+                              headers: auth_params
+      end
+
       context 'valid cinema_hall attributes' do
         let(:cinema_hall) { CinemaHall.new(name: 'Lalka', number_of_seats: 100) }
-        
+
         before do
           login(user)
         end
@@ -72,16 +72,15 @@ RSpec.describe 'CinemaHalls', type: :request do
           end.to change {
                    CinemaHall.count
                  }.by(1)
-          end
         end
       end
+    end
 
     context 'invalid cinema_hall attribute' do
       subject(:create_cinema_hall_with_invalid_attributes) do
         auth_params = get_auth_params_from_login_response_headers(response)
-        post '/cinema_halls', params: { number_of_seats: -10,name: ''}, headers: auth_params
+        post '/cinema_halls', params: { number_of_seats: -10, name: '' }, headers: auth_params
       end
-
 
       it 'valid http status' do
         create_cinema_hall_with_invalid_attributes
@@ -107,7 +106,7 @@ describe 'PUT /cinema_halls' do
   end
 
   context 'valid cinema_hall attributes' do
-    before do 
+    before do
       login(user)
     end
 

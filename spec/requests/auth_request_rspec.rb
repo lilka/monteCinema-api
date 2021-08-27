@@ -1,17 +1,18 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 include ActionController::RespondWith
 
-
 RSpec.describe('Auth', type: :request) do
-  describe ('POST /auth/sign_in') do 
+  describe('POST /auth/sign_in') do
     let(:role) { create(:role) }
     let(:user) { create(:user) }
 
-    before do 
+    before do
       user
     end
 
-    subject(:sign_in) do 
+    subject(:sign_in) do
       post '/auth/sign_in'
     end
 
@@ -19,6 +20,5 @@ RSpec.describe('Auth', type: :request) do
       login(user)
       expect(response.has_header?('access-token')).to eq(true)
     end
-
   end
-end 
+end
