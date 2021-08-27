@@ -12,12 +12,18 @@ module CinemaHalls
       adapter.all
     end
 
-    def find(id:)
+    def find(id)
       adapter.find(id)
     end
 
     def create(params)
       adapter.create(params)
     end
+
+
+    def create!(params)
+      adapter.create!(params)
+    end
+    
   end
 end

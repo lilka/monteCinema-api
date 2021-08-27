@@ -11,35 +11,22 @@ class CinemaHallsController < ApplicationController
   end
 
   def create
-    cinema_hall = CinemaHalls::UseCases::Create.new(params: cinema_hall_params).call 
-    begin
-      cinema_hall.valid?
-      byebug
-      render json: CinemaHalls::Representers::Single.new(cinema_hall).call, status: :created
-    rescue  ActiveRecord::RecordInvalid => e
-      byebug
-      render status: :bad_request, json: { errors: [e] }
-    end  
- end
+    cinema_hall = CinemaHalls::UseCases::Create.new(params: cinema_hall_params).call
+    render json: CinemaHalls::Representers::Single.new(cinema_hall).call, status: :created
+  rescue ActiveRecord::RecordInvalid => e
+    render status: :bad_request, json: { errors: e }
+  end
 
   def update
     updated_cinema_hall = CinemaHalls::UseCases::Update.new(params: cinema_hall_params, id: params[:id]).call
-    if updated_cinema_hall.errors.any?
-      render json: updated_cinema_hall.errors, status: :unprocessable_entity
-    else
-      render json: CinemaHalls::Representers::Single.new(updated_cinema_hall).call, status: :created
-    end
-  end
-
-  # DELETE /cinema_halls/1
-  def destroy
-    cinema_hall = CinemaHall.find(params[:id])
-    cinema_hall.destroy
+    render json: CinemaHalls::Representers::Single.new(updated_cinema_hall).call, status: :created
+  rescue ActiveRecord::RecordInvalid => e
+    render status: :bad_request, json: { errors: e }
   end
 
   private
 
   def cinema_hall_params
-    params.permit(:number_of_seats, :name)
+    params.permit(:number_of_seats, :name, :id)
   end
 end

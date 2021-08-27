@@ -10,17 +10,15 @@ class MoviesController < ApplicationController
   def create
     movie = Movies::UseCases::Create.new(params: movie_params).call
     render json: Movies::Representers::Single.new(movie).call, status: :created
-  rescue ActiveRecord::RecordNotFound => e
-    logger.info e
-    render json: movie.errors, status: :unprocessable_entity
+  rescue ActiveRecord::RecordInvalid => e
+    render status: :bad_request, json: { errors: e }
   end
 
   def update
     updated_movie = Movies::UseCases::Update.new(params: movie_params, id: params[:id]).call
     render json: updated_movie.errors, status: :unprocessable_entity
-  rescue ActiveRecord::RecordNotFound => e
-    logger.info e
-    render json: movie.errors, status: :unprocessable_entity
+  rescue ActiveRecord::RecordInvalid => e
+    render status: :bad_request, json: { errors: e }
   end
 
   private

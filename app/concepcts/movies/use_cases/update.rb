@@ -11,7 +11,7 @@ module Movies
 
       def call
         movie = repository.find(id: id)
-        movie.update(params)
+        movie.update!(params)
         movie
       end
 

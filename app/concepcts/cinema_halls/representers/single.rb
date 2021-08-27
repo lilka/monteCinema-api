@@ -9,7 +9,7 @@ module CinemaHalls
 
       def call
         {
-          id: cinema_hall.id,
+          # id: cinema_hall.id,
           name: cinema_hall.name,
           number_of_seats: cinema_hall.number_of_seats
         }

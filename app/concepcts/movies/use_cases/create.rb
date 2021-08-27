@@ -9,7 +9,7 @@ module Movies
       end
 
       def call
-        repository.create(params)
+        repository.create!(params)
       end
 
       private

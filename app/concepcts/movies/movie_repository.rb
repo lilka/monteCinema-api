@@ -16,8 +16,8 @@ module Movies
       adapter.find(id)
     end
 
-    def create(params)
-      adapter.create(params)
+    def create!(params)
+      adapter.create!(params)
     end
   end
 end
