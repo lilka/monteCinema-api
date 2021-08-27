@@ -4,6 +4,6 @@ FactoryBot.define do
   factory :movie do
     title { 'Pan Tadeusz' }
     description { 'Lorem impsum' }
-    duration { 120 }
+    duration { 180 }
   end
 end

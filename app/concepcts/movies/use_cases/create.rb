@@ -9,6 +9,7 @@ module Movies
       end
 
       def call
+        byebug
         repository.create!(params)
       end
 

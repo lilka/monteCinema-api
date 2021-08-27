@@ -10,8 +10,9 @@ module CinemaHalls
       end
 
       def call
-        cineam_hall = repository.find(id)
-        cineam_hall.update!(params)
+        raise "Cinema Hall with #{id} don't exist" if repository.find(id).present? == false
+        repository.update(params, id)
+       
       end
 
       private
