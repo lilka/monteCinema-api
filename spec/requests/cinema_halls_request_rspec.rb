@@ -77,10 +77,19 @@ RSpec.describe 'CinemaHalls', type: :request do
     end
 
     context 'invalid cinema_hall attribute' do
+
       subject(:create_cinema_hall_with_invalid_attributes) do
         auth_params = get_auth_params_from_login_response_headers(response)
         post '/cinema_halls', params: { number_of_seats: -10, name: '' }, headers: auth_params
       end
+
+      let(:role) { create(:role) }
+      let(:user) { create(:user) }
+
+      before do
+        login(user)
+      end
+
 
       it 'valid http status' do
         create_cinema_hall_with_invalid_attributes
