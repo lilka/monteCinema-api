@@ -5,7 +5,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, :validatable, :omniauthable
   include DeviseTokenAuth::Concerns::User
   has_many :reservations
-  belongs_to :role, ooptional: true
+  belongs_to :role, optional: true
 
   before_create :set_default_role
 

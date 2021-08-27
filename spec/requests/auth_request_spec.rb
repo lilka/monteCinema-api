@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-include ActionController::RespondWith
 
 RSpec.describe('Auth', type: :request) do
   describe('POST /auth/sign_in') do

@@ -5,6 +5,6 @@ FactoryBot.define do
     screening
     paid { false }
     status { 'pending' }
-    user { nil }
+    user
   end
 end

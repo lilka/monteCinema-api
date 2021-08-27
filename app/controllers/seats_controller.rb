@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class SeatsController < ApplicationController
-  before_action :get_screening, only: %i[index]
+  before_action :fetch_screening, only: %i[index]
   before_action :set_seat, only: %i[show destroy]
 
   def index
@@ -24,7 +24,7 @@ class SeatsController < ApplicationController
     @seat = @screening.seats.find(params[:id])
   end
 
-  def get_screening
+  def fetch_screening
     @screening = Screening.find(params[:screening_id])
   end
 end

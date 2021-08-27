@@ -77,7 +77,6 @@ RSpec.describe 'CinemaHalls', type: :request do
     end
 
     context 'invalid cinema_hall attribute' do
-
       subject(:create_cinema_hall_with_invalid_attributes) do
         auth_params = get_auth_params_from_login_response_headers(response)
         post '/cinema_halls', params: { number_of_seats: -10, name: '' }, headers: auth_params
@@ -89,7 +88,6 @@ RSpec.describe 'CinemaHalls', type: :request do
       before do
         login(user)
       end
-
 
       it 'valid http status' do
         create_cinema_hall_with_invalid_attributes
@@ -123,11 +121,12 @@ describe 'PUT /cinema_halls' do
       update_cinema_hall
       expect(response).to have_http_status(200)
     end
-  end
+  
 
   it 'valid attributes' do
     update_cinema_hall
     json = JSON.parse(response.body)
     expect(json).to eq({ 'id' => cinema_hall.id, 'name' => cinema_hall.name, 'number_of_seats' => '150' })
   end
+ end
 end

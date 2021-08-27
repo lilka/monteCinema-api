@@ -2,7 +2,6 @@
 
 class ReservationsController < ApplicationController
   before_action :set_reservation, only: %i[show]
-  before_action :authenticate_user!
 
   def index
     reservations = Reservation.all
@@ -19,7 +18,7 @@ class ReservationsController < ApplicationController
     seat_ids = seats_to_array(reservation_params[:seat_ids])
     if enought_seats?(screening.id, seat_ids.count)
       Reservation.transaction do
-        @reservation = Reservation.create!({ status: 'pending', paid: false, screening_id: screening.id, user_id: nil })
+        @reservation = Reservation.create!({ status: 'pending', paid: false, screening_id: screening.id, user_id: reservation_params[:user_id] })
         AssignSeats.new(@reservation.id, seat_ids, screening.id).call
       end
       render json: reservation_hash(@reservation)
@@ -35,7 +34,7 @@ class ReservationsController < ApplicationController
   end
 
   def reservation_params
-    params.permit(:screening_id, seat_ids: [])
+    params.permit(:user_id, :screening_id, seat_ids: [])
   end
 
   def enought_seats?(screening_id, seats_to_reserve)

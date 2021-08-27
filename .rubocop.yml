@@ -9,3 +9,8 @@ AllCops:
     - 'Gemfile'
     - 'config.ru'
     - !ruby/regexp /\/config\/(?:(?!routes.rb).)*$/
+Style/Documentation:
+  Enabled: false
+Metrics/BlockLength:
+  Exclude: 
+    - 'spec/**/*'

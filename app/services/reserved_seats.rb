@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class ReservedSeats < ApplicationController
+class ReservedSeats
   def initialize(screening_id)
     @screening_id = screening_id
   end
