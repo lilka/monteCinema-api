@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class MoviesController < ApplicationController
+  before_action :authenticate_user!
+
   def index
     render json: Movies::Representers::Multiple.new.call
   end

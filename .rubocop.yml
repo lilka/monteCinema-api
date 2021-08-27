@@ -1,0 +1,16 @@
+AllCops:
+  NewCops: enable
+  Exclude:
+    - 'app/channels/**/*'
+    - 'config/**/*'
+    - 'bin/**/*'
+    - 'db/**/*'
+    - 'Rakefile'
+    - 'Gemfile'
+    - 'config.ru'
+    - !ruby/regexp /\/config\/(?:(?!routes.rb).)*$/
+Style/Documentation:
+  Enabled: false
+Metrics/BlockLength:
+  Exclude: 
+    - 'spec/**/*'

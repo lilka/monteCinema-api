@@ -1,6 +1,11 @@
 # frozen_string_literal: true
 
 class CinemaHallsController < ApplicationController
+  before_action :authenticate_user!
+
+  before_action :set_cinema_halls, only: %i[show update]
+
+  # GET /cinema_halls
   def index
     render json: CinemaHalls::Representers::Multiple.new.call
   end
