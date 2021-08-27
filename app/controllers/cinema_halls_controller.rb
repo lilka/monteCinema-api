@@ -1,7 +1,10 @@
 # frozen_string_literal: true
 
 class CinemaHallsController < ApplicationController
+  before_action :authenticate_user!
+
   before_action :set_cinema_halls, only: %i[show update]
+
   # GET /cinema_halls
   def index
     @cinema_halls = CinemaHall.all.map do |cinema_hall|
@@ -20,7 +23,7 @@ class CinemaHallsController < ApplicationController
     @cinema_hall = CinemaHall.new(cinema_hall_params)
 
     if @cinema_hall.save
-      render json: cinema_hall_hash(@cinema_hall), status: :created, location: @cinema_hall
+      render json: cinema_hall_hash(@cinema_hall), status: :created
     else
       render json: @cinema_hall.errors, status: :unprocessable_entity
     end
@@ -39,6 +42,7 @@ class CinemaHallsController < ApplicationController
   def destroy
     cinema_hall = CinemaHall.find(params[:id])
     cinema_hall.destroy
+    render head :no_content
   end
 
   private
