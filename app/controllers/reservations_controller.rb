@@ -2,6 +2,7 @@
 
 class ReservationsController < ApplicationController
   before_action :set_reservation, only: %i[show]
+  before_action :authenticate_user!
 
   def index
     reservations = Reservation.all
@@ -47,7 +48,7 @@ class ReservationsController < ApplicationController
       paid: reservation.paid,
       screening: reservation.screening.movie.title,
       start_time: reservation.screening.start_time,
-      cinema_hall: reservation.screening.cinema_hall.name,
+      cinema_hall: reservation.screening.cinema_hall.name
     }
   end
 

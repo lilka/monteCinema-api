@@ -31,7 +31,7 @@ RSpec.describe('Reservations', type: :request) do
       it 'seats assign to reservation' do
         create_reservation
         reservation = Reservation.last
-        seats_reservations = ReservationsSeats.where(reservation_id: reservation.id )
+        seats_reservations = ReservationsSeats.where(reservation_id: reservation.id)
         expect(seats_reservations.count).to eq(2)
       end
     end

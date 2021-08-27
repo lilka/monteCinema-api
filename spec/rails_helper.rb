@@ -5,7 +5,7 @@ require 'spec_helper'
 require 'simplecov'
 SimpleCov.start 'rails'
 require './spec/support/factory_bot'
-
+require './spec/support/authentication'
 
 ENV['RAILS_ENV'] ||= 'test'
 require File.expand_path('../config/environment', __dir__)
@@ -68,5 +68,4 @@ RSpec.configure do |config|
   config.filter_rails_from_backtrace!
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
-
 end

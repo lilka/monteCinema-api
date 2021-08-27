@@ -1,12 +1,17 @@
 # frozen_string_literal: true
 
 class User < ApplicationRecord
-  before_action :authenticate_user!
-
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable
+  # Include default devise modules.
+  devise :database_authenticatable, :registerable, :recoverable, :rememberable, :validatable, :omniauthable
+  include DeviseTokenAuth::Concerns::User
   has_many :reservations
-  has_one :role
+  belongs_to :role, ooptional: true
+
+  before_create :set_default_role
+
+  private
+
+  def set_default_role
+    self.role ||= Role.find_by(role_name: 'client')
+  end
 end
