@@ -20,7 +20,8 @@ RSpec.describe('Reservations', type: :request) do
       context 'reservation is created' do
         subject(:create_reservation) do
           auth_params = get_auth_params_from_login_response_headers(response)
-          post '/reservations', params: { screening_id: screening.id, seat_ids: seat_ids, user_id: user.id }, headers: auth_params
+          post '/reservations', params: { screening_id: screening.id, seat_ids: seat_ids, user_id: user.id },
+                                headers: auth_params
         end
 
         it 'returns http status' do
@@ -47,7 +48,8 @@ RSpec.describe('Reservations', type: :request) do
       context 'reservation falis' do
         subject(:create_reservation_with_wrong_params) do
           auth_params = get_auth_params_from_login_response_headers(response)
-          post '/reservations', params: { screening_id: screening.id, seat_ids: screening.seats.ids, user_id: user.id }, headers: auth_params
+          post '/reservations',
+               params: { screening_id: screening.id, seat_ids: screening.seats.ids, user_id: user.id }, headers: auth_params
         end
 
         it 'returns error message' do
@@ -63,7 +65,7 @@ RSpec.describe('Reservations', type: :request) do
     let(:screening) { create(:screening) }
     let(:reservation) { create(:reservation) }
     let(:role) { create(:role) }
-    let(:user) { create(:user, :email => "new@email.com") }
+    let(:user) { create(:user, email: 'new@email.com') }
 
     before do
       seat_id = screening.seats.first.to_a
@@ -72,12 +74,10 @@ RSpec.describe('Reservations', type: :request) do
       login(user)
     end
 
-
     subject(:get_reservations) do
       auth_params = get_auth_params_from_login_response_headers(response)
       get '/reservations', headers: auth_params
     end
-
 
     it 'valid http status' do
       get_reservations

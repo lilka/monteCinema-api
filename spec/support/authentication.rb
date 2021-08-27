@@ -6,7 +6,6 @@ def login(current_user)
 end
 
 def get_auth_params_from_login_response_headers(response)
-  
   client = response.headers['client']
   token = response.headers['access-token']
   expiry = response.headers['expiry']

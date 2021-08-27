@@ -18,7 +18,8 @@ class ReservationsController < ApplicationController
     seat_ids = seats_to_array(reservation_params[:seat_ids])
     if enought_seats?(screening.id, seat_ids.count)
       Reservation.transaction do
-        @reservation = Reservation.create!({ status: 'pending', paid: false, screening_id: screening.id, user_id: reservation_params[:user_id] })
+        @reservation = Reservation.create!({ status: 'pending', paid: false, screening_id: screening.id,
+                                             user_id: reservation_params[:user_id] })
         AssignSeats.new(@reservation.id, seat_ids, screening.id).call
       end
       render json: reservation_hash(@reservation)
