@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class IsEnoughSeats
-  def initialize(seats_to_reserve, screening_id, repository: ReservationSeats::ReservationSeatRepository.new)
+  def initialize(seats_to_reserve, screening_id, repository: ReservationSeats::Repository.new)
     @seats_to_reserve = seats_to_reserve
     @screening_id = screening_id
     @repository = repository

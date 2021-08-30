@@ -15,9 +15,7 @@ class ReservationsController < ApplicationController
   def create
     reservation = Reservations::UseCases::Create.new(params: reservation_params).call
     render json: Reservations::Representers::Single.new(reservation).call
-  rescue AssignSeats::SeatsNotAvaliableError => e
-    render json: { error: e.message }.to_json, status: :unprocessable_entity
-  rescue Reservations::UseCases::Create::NotEnoughSeatsError => e
+  rescue Reservations::UseCases::Create::SeatsNotValidError => e
     render json: { error: e.message }.to_json, status: :unprocessable_entity
   end
 

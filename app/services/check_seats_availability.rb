@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class CheckSeatsAvailability
-  def initialize(seat_ids, screening_id, repository: ReservationSeats::ReservationSeatRepository.new)
+  def initialize(seat_ids, screening_id, repository: ReservationSeats::Repository.new)
     @seat_ids = seat_ids
     @screening_id = screening_id
     @repository = repository

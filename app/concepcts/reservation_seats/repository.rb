@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module ReservationSeats
-  class ReservationSeatRepository
+  class Repository
     attr_reader :adapter
 
     def initialize(adapter: ReservationsSeats)
@@ -15,5 +15,7 @@ module ReservationSeats
     def create(seat_id, reservation_id)
       adapter.create(seat_id: seat_id, reservation_id: reservation_id)
     end
+
   end
 end
+

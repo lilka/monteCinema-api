@@ -12,7 +12,7 @@ module Screenings
       def call
         raise ActiveRecord::RecordNotFound if repository.find(id).present? == false
 
-        if find_movie(params) == false
+        if movie_exists?(params) == false
           raise ActiveRecord::RecordNotFound,
                 "Couldn't find move with id #{params[:movie_id]}"
         end
@@ -24,7 +24,7 @@ module Screenings
 
       attr_reader :params, :repository, :id
 
-      def find_movie(params)
+      def movie_exists?(params)
         Movies::MovieRepository.new.find(params[:movie_id]).present?
       end
     end
