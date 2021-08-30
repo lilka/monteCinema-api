@@ -101,7 +101,7 @@ RSpec.describe('Screenings', type: :request) do
 
       it 'invalid number of seats' do
         create_screening_with_invalid_attributes
-        expect(JSON.parse(body)).to eq('errors' => ['Error: invalid number of seats'])
+        expect(JSON.parse(body)).to eq('errors' => 'Error: invalid number of seats')
       end
     end
   end

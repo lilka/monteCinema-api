@@ -55,7 +55,7 @@ RSpec.describe('Reservations', type: :request) do
         it 'returns error message' do
           create_reservation_with_wrong_params
           json = JSON.parse(response.body)
-          expect(json).to eq({ 'message' => 'No more pleaces for this screening' })
+          expect(json).to eq({ 'error' => 'Not enough seats for this screening' })
         end
       end
     end

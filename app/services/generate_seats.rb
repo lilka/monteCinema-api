@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class GenerateSeats
+  InvalidNumberOfSeats = Class.new(StandardError)
   def initialize(cinema_hall_id, screening_id)
     @cinema_hall = CinemaHall.find(cinema_hall_id)
     @screening_id = screening_id
@@ -17,7 +18,7 @@ class GenerateSeats
     when 20
       fill_seats(5, 4, @screening_id)
     else
-      raise 'Error: invalid number of seats'
+      raise InvalidNumberOfSeats, 'Error: invalid number of seats'
     end
   end
 
