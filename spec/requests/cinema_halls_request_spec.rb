@@ -128,4 +128,19 @@ describe 'PUT /cinema_halls' do
       expect(json).to eq({ 'id' => cinema_hall.id, 'name' => cinema_hall.name, 'number_of_seats' => 150 })
     end
   end
+
+  context 'ciname_hall do not exists' do
+    before do
+      login(user)
+    end
+    subject(:update_invalid_cinema_hall) do
+      auth_params = get_auth_params_from_login_response_headers(response)
+      put '/cinema_halls/10', params: { number_of_seats: 150 }, headers: auth_params
+    end
+    it 'valid error message ' do
+      update_invalid_cinema_hall
+      json = JSON.parse(response.body)
+      expect(json).to eq({ 'error' => "Couldn't find CinemaHall with 'id'=10" })
+    end
+  end
 end

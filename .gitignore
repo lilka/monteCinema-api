@@ -37,3 +37,7 @@
 
 coverage
 .DS_Store
+
+#Ignore coverage 
+/coverage.data
+/coverage/

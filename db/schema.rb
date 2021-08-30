@@ -103,8 +103,4 @@ ActiveRecord::Schema.define(version: 2021_08_26_113111) do
   add_foreign_key "screenings", "cinema_halls"
   add_foreign_key "screenings", "movies"
   add_foreign_key "seats", "screenings"
-<<<<<<< HEAD
-=======
-
->>>>>>> 54889a9acfd0374da1bc40e39cf676f515098c91
 end

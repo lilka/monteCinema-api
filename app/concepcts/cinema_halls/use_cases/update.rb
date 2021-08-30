@@ -10,9 +10,9 @@ module CinemaHalls
       end
 
       def call
-        raise "Cinema Hall with #{id} don't exist" if repository.find(id).present? == false
+        raise ActiveRecord::RecordNotFound, message if repository.find(id).present? == false
+
         repository.update(params, id)
-       
       end
 
       private

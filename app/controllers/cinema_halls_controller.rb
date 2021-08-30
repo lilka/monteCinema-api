@@ -24,6 +24,8 @@ class CinemaHallsController < ApplicationController
     render json: CinemaHalls::Representers::Single.new(updated_cinema_hall).call, status: :ok
   rescue ActiveRecord::RecordInvalid => e
     render status: :unprocessable_entity, json: { errors: e }
+  rescue ActiveRecord::RecordNotFound => e
+    render json: { error: e.message }.to_json, status: :unprocessable_entity
   end
 
   private

@@ -10,9 +10,9 @@ module Movies
       end
 
       def call
-        movie = repository.find(id: id)
-        movie.update!(params)
-        movie
+        raise ActiveRecord::RecordNotFound, message if repository.find(id).present? == false
+
+        repository.update(params, id)
       end
 
       private
