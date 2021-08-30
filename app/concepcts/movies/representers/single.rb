@@ -13,7 +13,6 @@ module Movies
           title: movie.title,
           description: movie.description,
           duration: movie.duration
-
         }
       end
 
