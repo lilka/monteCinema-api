@@ -35,7 +35,7 @@
 #ignore vs code set-up
 .vscode/settings.json
 
-coverage
+
 .DS_Store
 
 #Ignore coverage 
