@@ -3,13 +3,13 @@
 module Seats
   module UseCases
     class FetchAll
-      def initialize(params, repository: Screenings::Repository.new)
+      def initialize(params, repository: Seats::Repository.new)
         @repository = repository
         @params = params
       end
 
       def call
-        repository.fetch_all_seats(params[:sereening_id])
+        repository.fetch_all_seats(params[:screening_id])
       end
 
       private

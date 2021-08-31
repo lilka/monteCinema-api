@@ -9,6 +9,7 @@ module Seats
 
       def call
         {
+          id: seat.id,
           row: seat.row,
           number: seat.number
         }

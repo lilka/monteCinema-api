@@ -3,13 +3,13 @@
 module Seats
   module UseCases
     class Fetch
-      def initialize(params, repository: Screenings::Repository.new)
+      def initialize(params, repository: Seats::Repository.new)
         @repository = repository
         @params = params
       end
 
       def call
-        repository.fetch_seat(params[:sereening_id], params[:id])
+        repository.fetch_seat(params[:screening_id], params[:id])
       end
 
       private

@@ -15,7 +15,7 @@ module Seats
 
       private
 
-      attr_reader :seat
+      attr_reader :seats
     end
   end
 end
