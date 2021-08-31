@@ -12,7 +12,7 @@ module ReservationSeats
     def valid?
       seats_reserved = repository.reserved_seats(screening_id)
       all_seats = screening_repository.count_number_of_seats(screening_id)
-      seats_free(seats_reserved) or enough_seats?(all_seats, seats_reserved)
+      seats_free(seats_reserved) and enough_seats?(all_seats, seats_reserved)
     end
 
     private
@@ -20,11 +20,11 @@ module ReservationSeats
     attr_reader :repository, :screening_id, :seat_ids, :screening_repository
 
     def enough_seats?(all_seats, seats_reserved)
-      all_seats - seats_reserved.count <= seat_ids.count
+      all_seats - seats_reserved.count > seat_ids.count
     end
 
     def seats_free(seats_reserved)
-      (seats_reserved & seat_ids).any?
+      seat_ids.none? { |id| seats_reserved.include?(id) }
     end
   end
 end
