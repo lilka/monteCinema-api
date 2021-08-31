@@ -11,7 +11,8 @@ RSpec.describe('Reservations', type: :request) do
     before do
       GenerateSeats.new(screening.cinema_hall_id, screening.id).call
     end
-    let(:seat_ids) { screening.seats.take(2).map(&:id) }
+    let(:seat_ids) { screening.seats.first(2).map(&:id) }
+    let(:seat_ids_2nd_reservation) { screening.seats.last(2).map(&:id) }
 
     context 'when authenticated' do
       before do
@@ -21,6 +22,12 @@ RSpec.describe('Reservations', type: :request) do
         subject(:create_reservation) do
           auth_params = get_auth_params_from_login_response_headers(response)
           post '/reservations', params: { screening_id: screening.id, seat_ids: seat_ids, user_id: user.id },
+                                headers: auth_params
+        end
+
+        subject(:create_next_reservation) do
+          auth_params = get_auth_params_from_login_response_headers(response)
+          post '/reservations', params: { screening_id: screening.id, seat_ids: seat_ids_2nd_reservation, user_id: user.id },
                                 headers: auth_params
         end
 
@@ -42,6 +49,21 @@ RSpec.describe('Reservations', type: :request) do
           reservation = Reservation.last
           seats_reservations = ReservationsSeats.where(reservation_id: reservation.id)
           expect(seats_reservations.count).to eq(2)
+        end
+
+        it 'seats assign to reservation when seats some seats free' do
+          create_reservation
+          create_next_reservation
+          reservation = Reservation.last
+          seats_reservations = ReservationsSeats.where(reservation_id: reservation.id)
+          expect(seats_reservations.count).to eq(2)
+        end
+
+        it 'returns error message when seats already taken' do
+          create_reservation
+          create_reservation
+          json = JSON.parse(response.body)
+          expect(json).to eq({ 'error' => 'Seats with given ids are not valid or there is not enough free seats' })
         end
       end
 

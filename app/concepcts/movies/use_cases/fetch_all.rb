@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-module Screenings
+module Movies
   module UseCases
-    class ShowAll
-      def initialize(repository: Screenings::Repository.new)
+    class FetchAll
+      def initialize(repository: Movies::Repository.new)
         @repository = repository
       end
 

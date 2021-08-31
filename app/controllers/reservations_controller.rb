@@ -6,7 +6,7 @@ class ReservationsController < ApplicationController
   end
 
   def show
-    reservations = Reservations::UseCases::Show.new(id: params[:id]).call
+    reservations = Reservations::UseCases::Fetch.new(id: params[:id]).call
     render json: Reservations::Representers::Single.new(reservations).call
   rescue ActiveRecord::RecordNotFound => e
     render json: { error: e.message }.to_json, status: :unprocessable_entity

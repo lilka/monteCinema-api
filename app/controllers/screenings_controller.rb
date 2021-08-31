@@ -6,7 +6,7 @@ class ScreeningsController < ApplicationController
   end
 
   def show
-    screening = Screenings::UseCases::Show.new(id: params[:id]).call
+    screening = Screenings::UseCases::Fetch.new(id: params[:id]).call
     render json: Screenings::Representers::Single.new(screening).call
   rescue ActiveRecord::RecordNotFound => e
     render json: { error: e.message }.to_json, status: :unprocessable_entity

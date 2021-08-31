@@ -2,7 +2,7 @@
 
 module CinemaHalls
   module UseCases
-    class Show
+    class Fetch
       def initialize(id:, repository: CinemaHalls::Repository.new)
         @repository = repository
         @id = id

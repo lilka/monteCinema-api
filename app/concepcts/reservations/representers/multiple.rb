@@ -3,7 +3,7 @@
 module Reservations
   module Representers
     class Multiple
-      def initialize(reservations: Reservations::UseCases::ShowAll.new.call)
+      def initialize(reservations: Reservations::UseCases::FetchAll.new.call)
         @reservations = reservations
       end
 

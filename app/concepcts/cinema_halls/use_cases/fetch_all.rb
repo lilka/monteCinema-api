@@ -2,7 +2,7 @@
 
 module CinemaHalls
   module UseCases
-    class ShowAll
+    class FetchAll
       def initialize(repository: CinemaHalls::Repository.new)
         @repository = repository
       end

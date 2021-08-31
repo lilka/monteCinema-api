@@ -3,7 +3,7 @@
 module Screenings
   module Representers
     class Multiple
-      def initialize(screenings: Screenings::UseCases::ShowAll.new.call)
+      def initialize(screenings: Screenings::UseCases::FetchAll.new.call)
         @screenings = screenings
       end
 

@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-module Screenings
+module Reservations
   module UseCases
-    class Show
-      def initialize(id:, repository: Screenings::Repository.new)
+    class Fetch
+      def initialize(id:, repository: Reservations::Repository.new)
         @repository = repository
         @id = id
       end

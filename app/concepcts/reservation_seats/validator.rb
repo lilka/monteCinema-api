@@ -12,7 +12,7 @@ module ReservationSeats
     def valid?
       seats_reserved = repository.reserved_seats(screening_id)
       all_seats = screening_repository.count_number_of_seats(screening_id)
-      seats_free(seats_reserved) and enough_seats?(all_seats, seats_reserved)
+      seats_free(seats_reserved) && enough_seats?(all_seats, seats_reserved)
     end
 
     private
