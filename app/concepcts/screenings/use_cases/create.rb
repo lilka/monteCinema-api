@@ -3,7 +3,7 @@
 module Screenings
   module UseCases
     class Create
-      def initialize(params:, repository: ScreeningRepository.new)
+      def initialize(params:, repository: Screenings::Repository.new)
         @repository = repository
         @params = params
       end

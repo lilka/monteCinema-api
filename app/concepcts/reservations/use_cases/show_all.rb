@@ -3,7 +3,7 @@
 module Reservations
   module UseCases
     class ShowAll
-      def initialize(repository: ReservationRepository.new)
+      def initialize(repository: Reservations::Repository.new)
         @repository = repository
       end
 

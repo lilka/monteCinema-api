@@ -3,7 +3,7 @@
 module Screenings
   module UseCases
     class Show
-      def initialize(id:, repository: ScreeningRepository.new)
+      def initialize(id:, repository: Screenings::Repository.new)
         @repository = repository
         @id = id
       end

@@ -3,7 +3,7 @@
 module Screenings
   module UseCases
     class ShowAll
-      def initialize(repository: ScreeningRepository.new)
+      def initialize(repository: Screenings::Repository.new)
         @repository = repository
       end
 

@@ -3,7 +3,7 @@
 module CinemaHalls
   module UseCases
     class ShowAll
-      def initialize(repository: CinemaHallRepository.new)
+      def initialize(repository: CinemaHalls::Repository.new)
         @repository = repository
       end
 

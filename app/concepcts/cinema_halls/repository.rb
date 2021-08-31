@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-module Screenings
-  class ScreeningRepository
+module CinemaHalls
+  class Repository
     attr_reader :adapter
 
-    def initialize(adapter: Screening)
+    def initialize(adapter: CinemaHall)
       @adapter = adapter
     end
 

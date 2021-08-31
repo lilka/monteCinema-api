@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-module Movies
-  class MovieRepository
+module Screenings
+  class Repository
     attr_reader :adapter
 
-    def initialize(adapter: Movie)
+    def initialize(adapter: Screening)
       @adapter = adapter
     end
 
@@ -22,6 +22,10 @@ module Movies
 
     def update(params, id)
       adapter.where(id: id).update(params).first
+    end
+
+    def count_number_of_seats(id)
+      find(id).seats.count
     end
   end
 end

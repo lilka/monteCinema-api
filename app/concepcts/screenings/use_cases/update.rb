@@ -3,7 +3,7 @@
 module Screenings
   module UseCases
     class Update
-      def initialize(id:, params:, repository: ScreeningRepository.new)
+      def initialize(id:, params:, repository: Screenings::Repository.new)
         @id = id
         @repository = repository
         @params = params
@@ -25,7 +25,7 @@ module Screenings
       attr_reader :params, :repository, :id
 
       def movie_exists?(params)
-        Movies::MovieRepository.new.find(params[:movie_id]).present?
+        Movies::Repository.new.find(params[:movie_id]).present?
       end
     end
   end

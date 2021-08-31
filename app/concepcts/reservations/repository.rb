@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Reservations
-  class ReservationRepository
+  class Repository
     attr_reader :adapter
 
     def initialize(adapter: Reservation)

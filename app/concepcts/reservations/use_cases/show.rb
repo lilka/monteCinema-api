@@ -3,7 +3,7 @@
 module Reservations
   module UseCases
     class Show
-      def initialize(id:, repository: ReservationRepository.new)
+      def initialize(id:, repository: Reservations::Repository.new)
         @repository = repository
         @id = id
       end

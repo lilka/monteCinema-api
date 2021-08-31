@@ -3,7 +3,7 @@
 module Movies
   module UseCases
     class Update
-      def initialize(id:, params:, repository: MovieRepository.new)
+      def initialize(id:, params:, repository: Movies::Repository.new)
         @id = id
         @repository = repository
         @params = params

@@ -3,7 +3,7 @@
 module CinemaHalls
   module UseCases
     class Create
-      def initialize(params:, repository: CinemaHallRepository.new)
+      def initialize(params:, repository: CinemaHalls::Repository.new)
         @repository = repository
         @params = params
       end

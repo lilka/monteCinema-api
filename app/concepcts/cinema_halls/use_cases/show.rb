@@ -3,7 +3,7 @@
 module CinemaHalls
   module UseCases
     class Show
-      def initialize(id:, repository: CinemaHallRepository.new)
+      def initialize(id:, repository: CinemaHalls::Repository.new)
         @repository = repository
         @id = id
       end

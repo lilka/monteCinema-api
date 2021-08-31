@@ -15,7 +15,5 @@ module ReservationSeats
     def create(seat_id, reservation_id)
       adapter.create(seat_id: seat_id, reservation_id: reservation_id)
     end
-
   end
 end
-
