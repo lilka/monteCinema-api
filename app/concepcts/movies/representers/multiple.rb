@@ -3,7 +3,7 @@
 module Movies
   module Representers
     class Multiple
-      def initialize(movies: Movies::UseCases::ShowAll.new.call)
+      def initialize(movies: Movies::UseCases::FetchAll.new.call)
         @movies = movies
       end
 

@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-module CinemaHalls
+module Movies
   module UseCases
-    class ShowAll
-      def initialize(repository: CinemaHallRepository.new)
+    class FetchAll
+      def initialize(repository: Movies::Repository.new)
         @repository = repository
       end
 

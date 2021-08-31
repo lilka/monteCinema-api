@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-module Movies
+module Screenings
   module UseCases
     class Update
-      def initialize(id:, params:, repository: Movies::Repository.new)
+      def initialize(id:, params:, repository: Screenings::Repository.new)
         @id = id
         @repository = repository
         @params = params
@@ -12,12 +12,21 @@ module Movies
       def call
         raise ActiveRecord::RecordNotFound if repository.find(id).present? == false
 
+        if movie_exists?(params) == false
+          raise ActiveRecord::RecordNotFound,
+                "Couldn't find move with id #{params[:movie_id]}"
+        end
+
         repository.update(params, id)
       end
 
       private
 
       attr_reader :params, :repository, :id
+
+      def movie_exists?(params)
+        Movies::Repository.new.find(params[:movie_id]).present?
+      end
     end
   end
 end

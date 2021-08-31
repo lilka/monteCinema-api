@@ -2,53 +2,35 @@
 
 class ScreeningsController < ApplicationController
   def index
-    @screenings = Screening.all.map do |screening|
-      screening_hash(screening)
-    end
-    render json: @screenings
+    render json: Screenings::Representers::Multiple.new.call
   end
 
   def show
-    screening = Screening.find(params[:id])
-    transformed_screening = screening_hash(screening)
-    render json: transformed_screening
+    screening = Screenings::UseCases::Fetch.new(id: params[:id]).call
+    render json: Screenings::Representers::Single.new(screening).call
+  rescue ActiveRecord::RecordNotFound => e
+    render json: { error: e.message }.to_json, status: :unprocessable_entity
   end
 
   def update
-    screening = Screening.find(params[:id])
-    if screening.update(screening_params)
-      render json: screening
-    else
-      render json: screening.errors, status: :unprocessable_entity
-    end
+    updated_screening = Screenings::UseCases::Update.new(params: screening_params, id: params[:id]).call
+    render json: Screenings::Representers::Single.new(updated_screening).call, status: :ok
+  rescue ActiveRecord::RecordInvalid => e
+    render status: :unprocessable_entity, json: { errors: e.message }
+  rescue ActiveRecord::RecordNotFound => e
+    render json: { error: e.message }.to_json, status: :unprocessable_entity
   end
 
   def create
-    Screening.transaction do
-      @screening = Screening.create!(screening_params)
-      GenerateSeats.new(params[:cinema_hall_id], @screening.id).call
-    end
-    render json: screening_hash(@screening), status: :created, location: @screening
-  rescue StandardError => e
-    render status: :bad_request, json: { errors: [e] }
-  end
-
-  def find(id)
-    Screening.find(id)
+    screening = Screenings::UseCases::Create.new(params: screening_params).call
+    render json: Screenings::Representers::Single.new(screening).call, status: :created
+  rescue GenerateSeats::InvalidNumberOfSeats => e
+    render status: :bad_request, json: { errors: e.message }
   end
 
   private
 
   def screening_params
     params.permit(:movie_id, :cinema_hall_id, :start_time)
-  end
-
-  def screening_hash(screening)
-    {
-      id: screening.id,
-      movie_title: screening.movie.title,
-      cinema_hall: screening.cinema_hall.name,
-      start_time: screening.start_time
-    }
   end
 end

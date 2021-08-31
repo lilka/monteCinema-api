@@ -3,7 +3,7 @@
 module Movies
   module UseCases
     class Create
-      def initialize(params:, repository: MovieRepository.new)
+      def initialize(params:, repository: Movies::Repository.new)
         @repository = repository
         @params = params
       end

@@ -3,7 +3,7 @@
 module CinemaHalls
   module UseCases
     class Update
-      def initialize(id:, params:, repository: CinemaHallRepository.new)
+      def initialize(id:, params:, repository: CinemaHalls::Repository.new)
         @id = id.to_i
         @repository = repository
         @params = params

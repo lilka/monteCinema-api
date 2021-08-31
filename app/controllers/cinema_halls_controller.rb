@@ -8,7 +8,7 @@ class CinemaHallsController < ApplicationController
   end
 
   def show
-    cinema_hall = CinemaHalls::UseCases::Show.new(id: params[:id]).call
+    cinema_hall = CinemaHalls::UseCases::Fetch.new(id: params[:id]).call
     render json: CinemaHalls::Representers::Single.new(cinema_hall)
   end
 

@@ -1,23 +1,22 @@
 # frozen_string_literal: true
 
-module Movies
+module Reservations
   module UseCases
-    class Update
-      def initialize(id:, params:, repository: Movies::Repository.new)
-        @id = id
+    class Fetch
+      def initialize(id:, repository: Reservations::Repository.new)
         @repository = repository
-        @params = params
+        @id = id
       end
 
       def call
         raise ActiveRecord::RecordNotFound if repository.find(id).present? == false
 
-        repository.update(params, id)
+        repository.find(id)
       end
 
       private
 
-      attr_reader :params, :repository, :id
+      attr_reader :id, :repository
     end
   end
 end

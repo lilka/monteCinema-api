@@ -3,7 +3,7 @@
 module CinemaHalls
   module Representers
     class Multiple
-      def initialize(cinema_halls: CinemaHalls::UseCases::ShowAll.new.call)
+      def initialize(cinema_halls: CinemaHalls::UseCases::FetchAll.new.call)
         @cinema_halls = cinema_halls
       end
 
