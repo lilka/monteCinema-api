@@ -20,7 +20,7 @@ module ReservationSeats
     attr_reader :repository, :screening_id, :seat_ids, :screening_repository
 
     def enough_seats?(all_seats, seats_reserved)
-      all_seats - seats_reserved.count > seat_ids.count
+      all_seats - seats_reserved.count >= seat_ids.count
     end
 
     def seats_free(seats_reserved)
