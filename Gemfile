@@ -42,6 +42,7 @@ group :development, :test do
   gem 'sentry-rails', '~> 4.3', '>= 4.3.3'
   gem 'sentry-ruby', '~> 4.6', '>= 4.6.4'
   gem 'shoulda-matchers', '~> 5.0'
+  gem "letter_opener"
 
   gem 'simplecov', '~> 0.21.0', require: false
 

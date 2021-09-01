@@ -41,3 +41,6 @@
 #Ignore coverage 
 /coverage.data
 /coverage/
+config/.env
+dump.rdb
+
