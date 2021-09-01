@@ -15,5 +15,9 @@ module ReservationSeats
     def create(seat_id, reservation_id)
       adapter.create(seat_id: seat_id, reservation_id: reservation_id)
     end
+
+    def delete_seats_reservations_by_reservation_id(reservation_id)
+      adapter.where(reservation_id: reservation_id).delete_all
+    end
   end
 end

@@ -23,6 +23,7 @@ module Reservations
                                               user_id: params[:user_id] })
           AssignSeats.new(@reservation.id, seat_ids, params[:screening_id]).call
         end
+        CancelReservationJob.set(wait: 1.minute).perform_later(@reservation.id)
         @reservation
       end
 

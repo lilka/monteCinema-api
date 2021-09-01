@@ -27,13 +27,5 @@ module Screenings
     def count_number_of_seats(id)
       find(id).seats.count
     end
-
-    def fetch_all_seats(id)
-      adapter.find(id).seats.order('row, number')
-    end
-
-    def fetch_seat(id, seat_id)
-      adapter.find(id).seats.find(seat_id)
-    end
   end
 end

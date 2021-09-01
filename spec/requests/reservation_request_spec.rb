@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.describe('Reservations', type: :request) do
   describe 'POST/reservations' do
-    let(:screening) { create(:screening) }
+    let(:screening) { create(:screening, start_time: Time.now - 15.minutes) }
     let(:role) { create(:role) }
     let(:user) { create(:user) }
 
