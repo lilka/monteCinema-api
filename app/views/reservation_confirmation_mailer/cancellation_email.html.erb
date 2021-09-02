@@ -62,23 +62,6 @@
       margin-top: 282px;
       margin-left: 40px;
     }
-    .main-text-part-3{
-      position: absolute;
-      width: 550px;
-      height: 48px;
-      font-family: Chrono;
-      font-style: normal;
-      font-weight: 300;
-      font-size: 16px;
-      line-height: 16px;
-      color: #343541;
-      margin-top: 352px;
-      margin-left: 25px;
-
-    }
-    .footer{
-
-    }
 
     .facebook-social-icon{
       position: absolute;
@@ -135,7 +118,7 @@
      Hey <%= @user.name %> !
      </p>
      <p class ='main-text-part-1'>
-     Thanks for your reservation. Screening of <%=@reservation.screening.movie.title%> will start on <%=@reservation.screening.start_time.strftime("%A, %d %b %Y %l:%M %p")%>! Your tickets:</p>
+     Your reservation for screening of <%=@reservation.screening.movie.title%> on <%=@reservation.screening.start_time.strftime("%A, %d %b %Y %l:%M %p")%> has been cancelled, because you didn't pay for reservation. Cancelled tickets:</p>
      <section class="main-text-part-2">
      <ul>
       <%@seats_reservation.each do |single|%>
@@ -143,23 +126,18 @@
       <%end%>
      </ul>
      </section>
-     <p class="main-text-part-3">
-       Remember to arrive at least 30 minutes before screening starts and pay for your tickets 
-       at one of our Ticket Desks, otherwise your reservation will be cancelled.
-     </p>
     </div>
   </nav>
-  <footer class="footer">
+   <footer class="footer">
      <div>
       <img class="facebook-social-icon" src="/Users/lillalomnicka/Rubycamp/monteCinema-api/app/assets/images/image2.jpg" alt="facebook-social-icon">
       <img class="github-social-icon" src="/Users/lillalomnicka/Rubycamp/monteCinema-api/app/assets/images/image3.png" alt="github-social-icon">
       <img class="twitter-social-icon" src="/Users/lillalomnicka/Rubycamp/monteCinema-api/app/assets/images/image4.png" alt="twitter-social-icon">
       <p class="contact-info">
        Monterail sp. z o.o., Oławska 27-29, 50-123 Wrocław
-     </p>
+      </p>
      </div>
-    
   </footer>
-  </div>
-  </body>
+ </div>
+ </body>
 </html>
