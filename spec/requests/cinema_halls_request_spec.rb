@@ -13,7 +13,7 @@ RSpec.describe 'CinemaHalls', type: :request do
     end
 
     subject(:get_cinema_halls) do
-      auth_params = get_auth_params_from_login_response_headers(response)
+      auth_params = fetch_auth_params_from_login(response)
       get '/cinema_halls', headers: auth_params
     end
     context 'when authenticated' do
@@ -42,7 +42,7 @@ RSpec.describe 'CinemaHalls', type: :request do
       let(:user) { create(:user) }
 
       subject(:create_cinema_hall) do
-        auth_params = get_auth_params_from_login_response_headers(response)
+        auth_params = fetch_auth_params_from_login(response)
         post '/cinema_halls', params: { name: cinema_hall.name, number_of_seats: cinema_hall.number_of_seats },
                               headers: auth_params
       end
@@ -78,7 +78,7 @@ RSpec.describe 'CinemaHalls', type: :request do
 
     context 'invalid cinema_hall attribute' do
       subject(:create_cinema_hall_with_invalid_attributes) do
-        auth_params = get_auth_params_from_login_response_headers(response)
+        auth_params = fetch_auth_params_from_login(response)
         post '/cinema_halls', params: { number_of_seats: -10, name: '' }, headers: auth_params
       end
 
@@ -108,7 +108,7 @@ describe 'PUT /cinema_halls' do
   end
 
   subject(:update_cinema_hall) do
-    auth_params = get_auth_params_from_login_response_headers(response)
+    auth_params = fetch_auth_params_from_login(response)
     put "/cinema_halls/#{cinema_hall.id}", params: { number_of_seats: 150 }, headers: auth_params
   end
 
@@ -134,7 +134,7 @@ describe 'PUT /cinema_halls' do
       login(user)
     end
     subject(:update_invalid_cinema_hall) do
-      auth_params = get_auth_params_from_login_response_headers(response)
+      auth_params = fetch_auth_params_from_login(response)
       put '/cinema_halls/10', params: { number_of_seats: 150 }, headers: auth_params
     end
     it 'valid error message ' do

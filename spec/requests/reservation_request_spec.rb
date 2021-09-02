@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.describe('Reservations', type: :request) do
   describe 'POST/reservations' do
-    let(:screening) { create(:screening) }
+    let(:screening) { create(:screening, start_time: Time.now - 15.minutes) }
     let(:role) { create(:role) }
     let(:user) { create(:user) }
 
@@ -20,7 +20,7 @@ RSpec.describe('Reservations', type: :request) do
       end
       context 'reservation is created' do
         subject(:create_reservation) do
-          auth_params = get_auth_params_from_login_response_headers(response)
+          auth_params = fetch_auth_params_from_login(response)
           post '/reservations', params: { screening_id: screening.id, seat_ids: seat_ids, user_id: user.id },
                                 headers: auth_params
         end
@@ -54,7 +54,7 @@ RSpec.describe('Reservations', type: :request) do
         end
 
         subject(:create_reservation) do
-          auth_params = get_auth_params_from_login_response_headers(response)
+          auth_params = fetch_auth_params_from_login(response)
           post '/reservations', params: { screening_id: screening.id, seat_ids: seat_ids, user_id: user.id },
                                 headers: auth_params
         end
@@ -74,10 +74,11 @@ RSpec.describe('Reservations', type: :request) do
       end
 
       context 'reservation falis' do
+        let!(:seat_ids3) { screening.seats.ids.push(1, 2, 3) }
         subject(:create_reservation_with_wrong_params) do
-          auth_params = get_auth_params_from_login_response_headers(response)
+          auth_params = fetch_auth_params_from_login(response)
           post '/reservations',
-               params: { screening_id: screening.id, seat_ids: screening.seats.ids.push(1, 2, 3), user_id: user.id }, headers: auth_params
+               params: { screening_id: screening.id, seat_ids: seat_ids3, user_id: user.id }, headers: auth_params
         end
 
         it 'returns error message' do
@@ -103,7 +104,7 @@ RSpec.describe('Reservations', type: :request) do
     end
 
     subject(:get_reservations) do
-      auth_params = get_auth_params_from_login_response_headers(response)
+      auth_params = fetch_auth_params_from_login(response)
       get '/reservations', headers: auth_params
     end
 
