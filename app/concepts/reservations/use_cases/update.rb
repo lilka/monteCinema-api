@@ -12,6 +12,7 @@ module Reservations
       def call
         raise ActiveRecord::RecordNotFound unless repository.find(id).present?
         raise ActiveRecord::RecordInvalid unless repository.update(params, id)
+
         repository.find(id)
       end
 

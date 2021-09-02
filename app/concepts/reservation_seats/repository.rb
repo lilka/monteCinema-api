@@ -16,13 +16,12 @@ module ReservationSeats
       adapter.create(seat_id: seat_id, reservation_id: reservation_id)
     end
 
-<<<<<<< HEAD:app/concepcts/reservation_seats/repository.rb
     def fetch_seats_for_reservation(reservation_id)
       adapter.where('reservation_id = ?', reservation_id)
-=======
+    end
+
     def delete_by(filter)
       adapter.where(filter).delete_all
->>>>>>> main:app/concepts/reservation_seats/repository.rb
     end
   end
 end

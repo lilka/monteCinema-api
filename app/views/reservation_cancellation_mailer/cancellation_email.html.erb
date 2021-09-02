@@ -49,19 +49,7 @@
       margin-left: 25px;
 
     }
-    .main-text-part-2{
-      position: absolute;
-      width: 250px;
-      height: 32px;
-      font-family: Chrono;
-      font-style: normal;
-      font-weight: 200;
-      font-size: 16px;
-      line-height: 16px;
-      color: #343541;
-      margin-top: 282px;
-      margin-left: 40px;
-    }
+   
 
     .facebook-social-icon{
       position: absolute;
@@ -118,14 +106,8 @@
      Hey <%= @user.name %> !
      </p>
      <p class ='main-text-part-1'>
-     Your reservation for screening of <%=@reservation.screening.movie.title%> on <%=@reservation.screening.start_time.strftime("%A, %d %b %Y %l:%M %p")%> has been cancelled, because you didn't pay for reservation. Cancelled tickets:</p>
-     <section class="main-text-part-2">
-     <ul>
-      <%@seats_reservation.each do |single|%>
-      <li>Cinema hall: <%=@reservation.screening.cinema_hall.name%> row: <%=single.seat.row%> number <%=single.seat.number%> </li>
-      <%end%>
-     </ul>
-     </section>
+     Your reservation for screening of <%=@reservation.screening.movie.title%> on <%=@reservation.screening.start_time.strftime("%A, %d %b %Y %l:%M %p")%> has been cancelled, because you didn't pay for reservation. </p>
+     
     </div>
   </nav>
    <footer class="footer">
