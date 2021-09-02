@@ -1,0 +1,10 @@
+Welcome  <%= @user.name %>
+===============================================
+ Your reservation for screening of <%=@reservation.screening.movie.title%> on <%=@reservation.screening.start_time.strftime("%A, %d %b %Y %l:%M %p")%> has been cancelled, because you didn't pay for reservation. 
+ Cancelled tickets:
+  <%@seats_reservation.each do |single|%>
+    Cinema hall: <%=@reservation.screening.cinema_hall.name%> row: <%=single.seat.row%> number <%=single.seat.number%> 
+  <%end%>
+    
+===============================================   
+Monterail sp. z o.o., Oławska 27-29, 50-123 Wrocław

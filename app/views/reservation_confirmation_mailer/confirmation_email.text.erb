@@ -1,0 +1,14 @@
+Welcome  <%= @user.name %>
+===============================================
+Thanks for your reservation. Screening of <%=@reservation.screening.movie.title%> will start on <%=@reservation.screening.start_time.strftime("%A, %d %b %Y %l:%M %p")%>! Your tickets:</p>
+
+<%@seats_reservation.each do |single|%>
+      Cinema hall: <%=@reservation.screening.cinema_hall.name%> row: <%=single.seat.row%> number <%=single.seat.number%> 
+      <%end%>
+       
+       
+Remember to arrive at least 30 minutes before screening starts and pay for your tickets 
+at one of our Ticket Desks, otherwise your reservation will be cancelled.
+===============================================   
+Monterail sp. z o.o., Oławska 27-29, 50-123 Wrocław
+   
