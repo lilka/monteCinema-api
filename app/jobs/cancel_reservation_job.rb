@@ -5,7 +5,7 @@ class CancelReservationJob < ApplicationJob
 
   def perform(reservation_id)
     reservation = Reservations::Repository.new.find(reservation_id)
-    return unless reservation.paid == false
+    return if reservation.paid
 
     Reservation.transaction do
       Reservations::UseCases::Update.new(id: reservation.id, params: { status: 'cancel' }).call

@@ -11,7 +11,7 @@ module Reservations
       end
 
       def call
-        if ReservationSeats::Validator.new(seat_ids, params[:screening_id]).valid? == false
+        unless ReservationSeats::Validator.new(seat_ids, params[:screening_id]).valid?
           raise SeatsNotValidError,
                 'Seats with given ids are not valid or there is not enough free seats'
         end

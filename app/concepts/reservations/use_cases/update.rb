@@ -10,7 +10,7 @@ module Reservations
       end
 
       def call
-        raise ActiveRecord::RecordNotFound if repository.find(id).present? == false
+        raise if repository.find(id).present? && !ActiveRecord::RecordNotFound
 
         repository.update(params, id)
       end
