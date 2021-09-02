@@ -13,7 +13,7 @@ RSpec.describe 'Movies', type: :request do
     end
 
     subject(:get_movies) do
-      auth_params = get_auth_params_from_login_response_headers(response)
+      auth_params = fetch_auth_params_from_login(response)
       get '/movies', headers: auth_params
     end
     context 'when authenticated' do
@@ -42,7 +42,7 @@ RSpec.describe 'Movies', type: :request do
       let(:user) { create(:user) }
 
       subject(:create_movie) do
-        auth_params = get_auth_params_from_login_response_headers(response)
+        auth_params = fetch_auth_params_from_login(response)
         post '/movies', params: { title: movie.title, description: movie.description, duration: movie.duration },
                         headers: auth_params
       end
@@ -79,7 +79,7 @@ RSpec.describe 'Movies', type: :request do
 
     context 'invalid movie attribute' do
       subject(:create_movie_with_invalid_attributes) do
-        auth_params = get_auth_params_from_login_response_headers(response)
+        auth_params = fetch_auth_params_from_login(response)
         post '/movies', params: { titile: '', duration: -1 }, headers: auth_params
       end
 
@@ -108,8 +108,8 @@ describe 'PUT /movies' do
   end
 
   subject(:update_movie) do
-    auth_params = get_auth_params_from_login_response_headers(response)
-    put "/movies/#{movie.id}", params: { description: 'updated description' }, headers: auth_params
+    auth_params = fetch_auth_params_from_login(response)
+    put "/movies/#{movie.id}", params: { description: 'updated description', duration: 250 }, headers: auth_params
   end
 
   context 'valid movie attributes' do
@@ -126,16 +126,33 @@ describe 'PUT /movies' do
       update_movie
       json = JSON.parse(response.body)
       expect(json).to eq({ 'id' => movie.id, 'title' => movie.title, 'description' => 'updated description',
-                           'duration' => 'PT2M3S' })
+                           'duration' => 'PT4M10S' })
     end
   end
 
-  context 'ciname_hall do not exists' do
+  context 'update with invalid attributes' do
+    subject(:update_movie_invalid_attributes) do
+      auth_params = fetch_auth_params_from_login(response)
+      put "/movies/#{movie.id}", params: { duration: -1 }, headers: auth_params
+    end
+
+    before do
+      login(user)
+    end
+
+    it 'invalid attributes' do
+      update_movie_invalid_attributes
+
+      expect(response).to have_http_status(422)
+    end
+  end
+
+  context 'movie do not exists' do
     before do
       login(user)
     end
     subject(:update_invalid_movie) do
-      auth_params = get_auth_params_from_login_response_headers(response)
+      auth_params = fetch_auth_params_from_login(response)
       put '/movies/10', params: { title: 'Tabaluga' }, headers: auth_params
     end
     it 'valid error message ' do

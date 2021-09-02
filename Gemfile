@@ -21,6 +21,9 @@ gem 'puma', '~> 5.0'
 gem 'devise', '~> 4.2'
 gem 'devise_token_auth', '~> 1.2.0'
 gem 'omniauth', '~> 2.0.4'
+gem 'sidekiq', '~> 4.1', '>= 4.1.2'
+gem "sidekiq-cron", "~> 1.1"
+
 
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
@@ -42,7 +45,7 @@ group :development, :test do
   gem 'sentry-rails', '~> 4.3', '>= 4.3.3'
   gem 'sentry-ruby', '~> 4.6', '>= 4.6.4'
   gem 'shoulda-matchers', '~> 5.0'
-
+  gem 'dotenv-rails', '~> 2.1', '>= 2.1.1'
   gem 'simplecov', '~> 0.21.0', require: false
 
 end

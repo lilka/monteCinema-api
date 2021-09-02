@@ -21,7 +21,7 @@ module Movies
     end
 
     def update(params, id)
-      adapter.where(id: id).update(params).first
+      adapter.find_by(id: id).update(params)
     end
   end
 end

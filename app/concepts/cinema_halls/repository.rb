@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-module Reservations
+module CinemaHalls
   class Repository
     attr_reader :adapter
 
-    def initialize(adapter: Reservation)
+    def initialize(adapter: CinemaHall)
       @adapter = adapter
     end
 
@@ -21,7 +21,7 @@ module Reservations
     end
 
     def update(params, id)
-      adapter.where(id: id).update(params).first
+      adapter.find_by(id: id).update(params)
     end
   end
 end
