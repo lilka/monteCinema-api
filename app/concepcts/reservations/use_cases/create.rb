@@ -22,8 +22,9 @@ module Reservations
           @reservation = repository.create!({ status: 'pending', paid: false, screening_id: params[:screening_id],
                                               user_id: params[:user_id] })
           AssignSeats.new(@reservation.id, seat_ids, params[:screening_id]).call
-          ReservationConfirmationMailer.with(reservation: @reservation).confirmation_email.deliver_later
         end
+        ReservationConfirmationMailer.with(reservation: @reservation).confirmation_email.deliver_later
+
         @reservation
       end
 

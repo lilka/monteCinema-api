@@ -2,13 +2,112 @@
 <html>
   <head>
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
-  </head>
-  <body>
-    <h1>Welcome <%= @user.name %></h1>
-    <p>
-      Your reservation for <%= @reservation.screening.movie.title %> is confirmed 
-    </p>
-    </p>
-    <p>Thanks for choosing Monte Cinema and have a great day!</p>
+    <style>
+    .logo-img {
+      position: absolute;
+      width: 300px;
+      height: 82.42px;
+      margin-top: 26px;
+      margin-bottom: 640px;
+      margin-right: 150px;
+      margin-left: 150px;
+      }
+    .welcome-text{
+      position: absolute;
+      width: 300px;
+      height: 58px;
+
+      font-family: Unna;
+      font-style: normal;
+      font-weight: normal;
+      font-size: 30px;
+      line-height: 20px;
+      color: #343541;
+      margin-top: 149px;
+      margin-bottom: 541px;
+      margin-left: 15px;
+    }
+      
+    .frame{
+      position: absolute;
+      width: 600px;
+      height: 748px;
+      background: #FFFFFF;
+      }
+    .main-text-part-1{
+      position: absolute;
+      width: 550px;
+      height: 32px;
+
+      font-family: Chrono;
+      font-style: normal;
+      font-weight: 300;
+      font-size: 16px;
+      line-height: 16px;
+      color: #343541;
+      margin-top: 222px;
+      margin-left: 25px;
+
+    }
+    .main-text-part-2{
+      position: absolute;
+      width: 250px;
+      height: 32px;
+      font-family: Chrono;
+      font-style: normal;
+      font-weight: 200;
+      font-size: 16px;
+      line-height: 16px;
+      color: #343541;
+      margin-top: 282px;
+      margin-left: 40px;
+    }
+    .main-text-part-3{
+      position: absolute;
+      width: 550px;
+      height: 48px;
+      font-family: Chrono;
+      font-style: normal;
+      font-weight: 300;
+      font-size: 16px;
+      line-height: 16px;
+      color: #343541;
+      margin-top: 352px;
+      margin-left: 25px;
+
+    }
+    </style>
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Unna" />
+    <link href="http://fonts.cdnfonts.com/css/chrono" rel="stylesheet">
+  </head> 
+  <body >
+  <div class='frame'>
+  <header class="header">
+    <img class='logo-img' src ='/Users/lillalomnicka/Rubycamp/monteCinema-api/app/assets/images/logo.jpeg' alt ='Monterail logo' >
+  </header>
+  <nav class='main-part'>
+    <div>
+     <p class='welcome-text'>
+     Hey <%= @user.name %> !
+     </p>
+     <p class ='main-text-part-1'>
+     Thanks for your reservation. Screening of <%=@reservation.screening.movie.title%> will start on <%=@reservation.screening.start_time%>! Your tickets:</p>
+     <section class="main-text-part-2">
+     <ul>
+      <%@seats_reservation.each do |single|%>
+      <li>Cinema hall: <%=@reservation.screening.cinema_hall.name%> row: <%=single.seat.row%> number <%=single.seat.number%> </li>
+      <%end%>
+     </ul>
+     </section>
+     <p class="main-text-part-3">
+       Remember to arrive at least 30 minutes before screening starts and pay for your tickets 
+       at one of our Ticket Desks, otherwise your reservation will be cancelled.
+     </p>
+    </div>
+  </nav>
+  <footer>
+  
+  </footer>
+  </div>
   </body>
 </html>

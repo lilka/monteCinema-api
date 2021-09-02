@@ -15,5 +15,9 @@ module ReservationSeats
     def create(seat_id, reservation_id)
       adapter.create(seat_id: seat_id, reservation_id: reservation_id)
     end
+
+    def fetch_seats_for_reservation(reservation_id)
+      adapter.where('reservation_id = ?', reservation_id)
+    end
   end
 end
