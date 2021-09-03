@@ -24,6 +24,8 @@ gem 'omniauth', '~> 2.0.4'
 gem 'sidekiq', '~> 4.1', '>= 4.1.2'
 gem "sidekiq-cron", "~> 1.1"
 gem 'pundit', '~> 1.1'
+gem 'dotenv-rails', '~> 2.1', '>= 2.1.1'
+
 
 
 # Use Active Storage variant
@@ -46,7 +48,6 @@ group :development, :test do
   gem 'sentry-rails', '~> 4.3', '>= 4.3.3'
   gem 'sentry-ruby', '~> 4.6', '>= 4.6.4'
   gem 'shoulda-matchers', '~> 5.0'
-  gem 'dotenv-rails', '~> 2.1', '>= 2.1.1'
   gem 'simplecov', '~> 0.21.0', require: false
 
 end
