@@ -7,7 +7,6 @@ class CreateReservations < ActiveRecord::Migration[6.1]
       t.datetime :date
       t.boolean :paid
       t.string :status
-      t.references :user, null: false, foreign_key: true
 
       t.timestamps
     end
