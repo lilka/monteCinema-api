@@ -1,4 +1,4 @@
-class MoviePolicy < ApplicationPolicy
+class CinemaHallPolicy < ApplicationPolicy
   def update? 
     access?
   end
@@ -11,5 +11,4 @@ class MoviePolicy < ApplicationPolicy
    def access?
     user.role.role_name == 'employee' || user.role.role_name == 'manager'
    end
-
 end

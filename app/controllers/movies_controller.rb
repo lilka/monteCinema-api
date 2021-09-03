@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class MoviesController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, only: [:update, :create]
 
   def index
     render json: Movies::Representers::Multiple.new.call
@@ -19,6 +19,7 @@ class MoviesController < ApplicationController
   end
 
   def update
+    authorize Movie, :update?
     updated_movie = Movies::UseCases::Update.new(params: movie_params, id: params[:id]).call
     render json: Movies::Representers::Single.new(updated_movie).call, status: :ok
   rescue ActiveRecord::RecordInvalid => e
