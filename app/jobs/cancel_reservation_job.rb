@@ -12,6 +12,6 @@ class CancelReservationJob < ApplicationJob
       ReleaseSeats.new(reservation.id).call
     end
 
-    ReservationCancellationMailer.with(reservation: @reservation).cancellation_email.deliver_later
+    ReservationCancellationMailer.with(reservation: reservation).cancellation_email.deliver
   end
 end

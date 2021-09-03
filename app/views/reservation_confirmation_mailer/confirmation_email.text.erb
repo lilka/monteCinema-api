@@ -1,6 +1,6 @@
 Welcome  <%= @user.name %>
 ===============================================
-Thanks for your reservation. Screening of <%=@reservation.screening.movie.title%> will start on <%=@reservation.screening.start_time.strftime("%A, %d %b %Y %l:%M %p")%>! Your tickets:</p>
+Thanks for your reservation. Screening of <%=@reservation.screening.movie.title%> will start on <%=@reservation.screening.start_time.strftime("%A, %d %b %Y %l:%M %p")%>! Your tickets:
 
 <%@seats_reservation.each do |single|%>
       Cinema hall: <%=@reservation.screening.cinema_hall.name%> row: <%=single.seat.row%> number <%=single.seat.number%> 
