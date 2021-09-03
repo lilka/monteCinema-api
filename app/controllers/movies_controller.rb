@@ -9,9 +9,11 @@ class MoviesController < ApplicationController
 
   def show; end
 
-  def create
+  def create 
+  if authorize Movie, :create?
     movie = Movies::UseCases::Create.new(params: movie_params).call
-    render json: Movies::Representers::Single.new(@movie).call, status: :created
+    render json: Movies::Representers::Single.new(movie).call, status: :created
+   end
   rescue ActiveRecord::RecordInvalid => e
     render status: :unprocessable_entity, json: { errors: e.message }.to_json
   end

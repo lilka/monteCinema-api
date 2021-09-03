@@ -6,4 +6,5 @@ class MoviePolicy < ApplicationPolicy
   def create? 
     user.role.role_name = 'employee' || user.role.role_name = 'manager'
   end
+
 end
