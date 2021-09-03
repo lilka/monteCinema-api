@@ -23,6 +23,7 @@ gem 'devise_token_auth', '~> 1.2.0'
 gem 'omniauth', '~> 2.0.4'
 gem 'sidekiq', '~> 4.1', '>= 4.1.2'
 gem "sidekiq-cron", "~> 1.1"
+gem 'pundit', '~> 1.1'
 
 
 # Use Active Storage variant
