@@ -50,7 +50,6 @@ group :development, :test do
   gem 'shoulda-matchers', '~> 5.0'
   gem 'letter_opener', '~> 1.4', '>= 1.4.1' 
   gem 'dotenv-rails', '~> 2.1', '>= 2.1.1'
-  gem 'letter_opener', '~> 1.4', '>= 1.4.1'
   gem 'simplecov', '~> 0.21.0', require: false
 
 end
