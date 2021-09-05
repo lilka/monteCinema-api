@@ -293,7 +293,7 @@ DEPENDENCIES
   factory_bot_rails (~> 6.2)
   faker (~> 2.18, >= 2.18.0)
   figaro (~> 1.1, >= 1.1.1)
-  letter_opener
+  letter_opener (~> 1.4, >= 1.4.1)
   listen (~> 3.3)
   omniauth (~> 2.0.4)
   pg (~> 1.1)
