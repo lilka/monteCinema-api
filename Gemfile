@@ -23,6 +23,13 @@ gem 'devise_token_auth', '~> 1.2.0'
 gem 'omniauth', '~> 2.0.4'
 gem 'sidekiq', '~> 4.1', '>= 4.1.2'
 gem "sidekiq-cron", "~> 1.1"
+gem 'pundit', '~> 1.1'
+gem 'dotenv-rails', '~> 2.1', '>= 2.1.1'
+gem 'sentry-rails', '~> 4.3', '>= 4.3.3'
+gem 'sentry-ruby', '~> 4.6', '>= 4.6.4'
+gem 'faker', '~> 2.18', '>=2.18.0'
+gem 'figaro', '~> 1.1', '>= 1.1.1'
+
 
 
 # Use Active Storage variant
@@ -38,12 +45,8 @@ group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
   gem 'factory_bot_rails', '~> 6.2'
-  gem 'faker', '~> 2.18', '>=2.18.0'
-  gem 'figaro', '~> 1.1', '>= 1.1.1'
   gem 'rspec-rails', '~> 5.0.0'
   gem 'rubocop', '~> 1.18', '>= 1.18.4'
-  gem 'sentry-rails', '~> 4.3', '>= 4.3.3'
-  gem 'sentry-ruby', '~> 4.6', '>= 4.6.4'
   gem 'shoulda-matchers', '~> 5.0'
   gem 'letter_opener', '~> 1.4', '>= 1.4.1' 
   gem 'dotenv-rails', '~> 2.1', '>= 2.1.1'

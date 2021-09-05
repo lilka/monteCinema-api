@@ -1,8 +1,5 @@
 class DeviseTokenAuthCreateUsers < ActiveRecord::Migration[6.1]
   def change
-    remove_reference :reservations, :user, null: false, foreign_key: true
-    drop_table :users
-
     create_table(:users) do |t|
       ## Required
       t.string :provider, :null => false, :default => "email"
