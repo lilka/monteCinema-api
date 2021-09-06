@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
 class AssignSeats
-  def initialize(reservation_id, seat_ids, screening_id, repository: ReservationSeats::Repository.new)
+  def initialize(reservation_id, params, repository: ReservationSeats::Repository.new)
     @reservation_id = reservation_id
-    @seat_ids = seat_ids
-    @screening_id = screening_id
+    @seat_ids = params[:seat_ids]
+    @screening_id = params[:screening_id]
     @repository = repository
   end
 

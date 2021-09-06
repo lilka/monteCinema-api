@@ -2,9 +2,9 @@
 
 module ReservationSeats
   class Validator
-    def initialize(seat_ids, screening_id, repository: ReservationSeats::Repository.new, screening_repository: Screenings::Repository.new)
-      @seat_ids = seat_ids
-      @screening_id = screening_id
+    def initialize(params, repository: ReservationSeats::Repository.new, screening_repository: Screenings::Repository.new)
+      @seat_ids = params[:seat_ids]
+      @screening_id = params[:screening_id]
       @repository = repository
       @screening_repository = screening_repository
     end
