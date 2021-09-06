@@ -11,5 +11,7 @@ class CancelReservationJob < ApplicationJob
       Reservations::UseCases::Update.new(id: reservation.id, params: { status: 'cancel' }).call
       ReleaseSeats.new(reservation.id).call
     end
+
+    ReservationCancellationMailer.with(reservation: reservation).cancellation_email.deliver
   end
 end
