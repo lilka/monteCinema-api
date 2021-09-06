@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+    <style>
+    .logo-img {
+      position: absolute;
+      width: 300px;
+      height: 82.42px;
+      margin-top: 26px;
+      margin-bottom: 640px;
+      margin-right: 150px;
+      margin-left: 150px;
+      }
+    .welcome-text{
+      position: absolute;
+      width: 300px;
+      height: 58px;
+
+      font-family: Unna;
+      font-style: normal;
+      font-weight: normal;
+      font-size: 30px;
+      line-height: 20px;
+      color: #343541;
+      margin-top: 149px;
+      margin-bottom: 541px;
+      margin-left: 15px;
+    }
+      
+    .frame{
+      position: absolute;
+      width: 600px;
+      height: 748px;
+      background: #FFFFFF;
+      }
+    .main-text-part-1{
+      position: absolute;
+      width: 550px;
+      height: 32px;
+
+      font-family: Chrono;
+      font-style: normal;
+      font-weight: 300;
+      font-size: 16px;
+      line-height: 16px;
+      color: #343541;
+      margin-top: 222px;
+      margin-left: 25px;
+
+    }
+   
+
+    .facebook-social-icon{
+      position: absolute;
+      width: 50px;
+      height: 50px;
+      margin-top: 605px;
+      margin-left: 215px;
+
+    }
+
+    .github-social-icon{
+      position: absolute;
+      width: 50px;
+      height: 50px;
+      margin-top: 605px;
+      margin-left: 275px;
+
+    }
+
+    .twitter-social-icon{
+      position: absolute;
+      width: 50px;
+      height: 50px;
+      margin-top: 605px;
+      margin-left: 335px;
+    }
+
+    .contact-info{
+      position: absolute;
+      width: 275px;
+      height: 12px;
+
+      font-family: Chrono;
+      font-style: normal;
+      font-weight: 300;
+      font-size: 12px;
+      line-height: 12px;
+      color: #B9B9B8;
+      margin-top: 681px;
+      margin-left: 162px;
+    }
+    </style>
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Unna" />
+    <link href="http://fonts.cdnfonts.com/css/chrono" rel="stylesheet">
+  </head> 
+  <body >
+  <div class='frame'>
+  <header class="header">
+    <img class='logo-img' src ='/Users/lillalomnicka/Rubycamp/monteCinema-api/app/assets/images/logo.jpeg' alt ='Monterail logo' >
+  </header>
+  <nav class='main-part'>
+    <div>
+     <p class='welcome-text'>
+     Hey <%= @user.name %> !
+     </p>
+     <p class ='main-text-part-1'>
+     Your reservation for screening of  <%=@reservation.screening.movie.title%> on <%=@reservation.screening.start_time.strftime("%A, %d %b %Y %l:%M %p")%> has been cancelled, because you didn't pay for reservation. </p>
+     
+    </div>
+  </nav>
+   <footer class="footer">
+     <div>
+      <img class="facebook-social-icon" src="/Users/lillalomnicka/Rubycamp/monteCinema-api/app/assets/images/image2.jpg" alt="facebook-social-icon">
+      <img class="github-social-icon" src="/Users/lillalomnicka/Rubycamp/monteCinema-api/app/assets/images/image3.png" alt="github-social-icon">
+      <img class="twitter-social-icon" src="/Users/lillalomnicka/Rubycamp/monteCinema-api/app/assets/images/image4.png" alt="twitter-social-icon">
+      <p class="contact-info">
+       Monterail sp. z o.o., Oławska 27-29, 50-123 Wrocław
+      </p>
+     </div>
+  </footer>
+ </div>
+ </body>
+</html>

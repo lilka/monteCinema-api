@@ -48,6 +48,8 @@ group :development, :test do
   gem 'rspec-rails', '~> 5.0.0'
   gem 'rubocop', '~> 1.18', '>= 1.18.4'
   gem 'shoulda-matchers', '~> 5.0'
+  gem 'letter_opener', '~> 1.4', '>= 1.4.1' 
+  gem 'dotenv-rails', '~> 2.1', '>= 2.1.1'
   gem 'simplecov', '~> 0.21.0', require: false
 
 end
