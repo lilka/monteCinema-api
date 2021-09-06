@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class ReservationsController < ApplicationController
+  before_action :authenticate_user!, only: %i[index show create_offline]
+
   def index
     render json: Reservations::Representers::Multiple.new.call
   end
@@ -18,6 +20,14 @@ class ReservationsController < ApplicationController
   rescue Reservations::UseCases::Create::SeatsNotValidError => e
     render json: { error: e.message }.to_json, status: :unprocessable_entity
   end
+
+  def create_offline
+    reservation = Reservations::UseCases::CreateOffline.new(params: reservation_params).call
+    render json: Reservations::Representers::Single.new(reservation).call
+  rescue Reservations::UseCases::CreateOffline::SeatsNotValidError => e
+    render json: { error: e.message }.to_json, status: :unprocessable_entity
+  end
+
 
   private
 

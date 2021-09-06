@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class SeatsController < ApplicationController
+  before_action :authenticate_user!
   def index
     seats = Seats::UseCases::FetchAll.new(params).call
     render json: Seats::Representers::Multiple.new(seats).call
