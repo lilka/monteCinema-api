@@ -16,22 +16,15 @@ module Reservations
                 'Seats with given ids are not valid or there is not enough free seats'
         end
         Reservation.transaction do
-          @reservation = repository.create!({ status: 'pending', paid: false, screening_id: params[:screening_id],
+          @reservation = repository.create!({ status: 'approved', paid: true, screening_id: params[:screening_id],
                                               user_id: params[:user_id] })
           AssignSeats.new(@reservation.id, params).call
         end
-        ReservationConfirmationMailer.with(reservation: @reservation).confirmation_email.deliver_later
-        CancelReservationJob.set(wait_until: cancellation_time).perform_later(@reservation.id)
-        @reservation
       end
 
       private
 
       attr_reader :params, :repository
-
-      def cancellation_time
-        @reservation.screening.start_time - CANCELLATION_PERIOD
-      end
     end
   end
 end

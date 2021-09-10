@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class ScreeningsController < ApplicationController
-  before_action :authenticate_user!, only: [:update, :create]
+  before_action :authenticate_user!, only: %i[update create]
   def index
     render json: Screenings::Representers::Multiple.new.call
   end

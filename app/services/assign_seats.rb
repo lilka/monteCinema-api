@@ -10,7 +10,7 @@ class AssignSeats
 
   def call
     seat_ids.each do |seat_id|
-      repository.create(seat_id, reservation_id)
+      repository.create(seat_id.to_i, reservation_id)
     end
   end
 

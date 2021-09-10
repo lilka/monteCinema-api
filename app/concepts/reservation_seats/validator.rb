@@ -3,7 +3,7 @@
 module ReservationSeats
   class Validator
     def initialize(params, repository: ReservationSeats::Repository.new, screening_repository: Screenings::Repository.new)
-      @seat_ids = params[:seat_ids]
+      @seat_ids = seats_to_i(params[:seat_ids])
       @screening_id = params[:screening_id]
       @repository = repository
       @screening_repository = screening_repository
@@ -25,6 +25,10 @@ module ReservationSeats
 
     def seats_free(seats_reserved)
       seat_ids.none? { |id| seats_reserved.include?(id) }
+    end
+
+    def seats_to_i(seat_ids)
+      seat_ids.map(&:to_i)
     end
   end
 end

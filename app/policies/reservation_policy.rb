@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class CinemaHallPolicy < ApplicationPolicy
+class ReservationPolicy < ApplicationPolicy
   def update?
     access?
   end

@@ -15,7 +15,7 @@ RSpec.describe('Auth', type: :request) do
       post '/auth/sign_in'
     end
 
-    it 'gives you an authentication code if you are an existing user and you satisfy the password' do
+    it 'gives an authentication code if user exists and satisfies the password' do
       login(user)
       expect(response.has_header?('access-token')).to eq(true)
     end

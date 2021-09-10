@@ -50,20 +50,17 @@ RSpec.describe('Screenings', type: :request) do
     context 'valid attributes' do
       let(:movie) { create(:movie) }
       let(:cinema_hall) { create(:cinema_hall) }
-      let(:invalid_cinema_hall) { create(:cinema_hall, number_of_seats: 123) }
+      let(:role) { create(:role, :employee_role) }
+      let(:employee) { create(:user, role_id: role.id) }
 
       subject(:create_screening) do
+        auth_params = fetch_auth_params_from_login(response)
         post '/screenings',
-             params: { movie_id: movie.id, cinema_hall_id: cinema_hall.id, start_time: '2021-08-18T00:00:00.000Z' }
+             params: { movie_id: movie.id, cinema_hall_id: cinema_hall.id, start_time: '2021-08-18T00:00:00.000Z' }, headers: auth_params
       end
 
-      subject(:create_screening_with_invalid_attributes) do
-        post '/screenings',
-             params: {
-               movie_id: movie.id,
-               cinema_hall_id: invalid_cinema_hall.id,
-               start_time: '2021-08-18T00:00:00.000Z'
-             }
+      before do
+        login(employee)
       end
 
       it 'valid http status' do
@@ -98,6 +95,27 @@ RSpec.describe('Screenings', type: :request) do
         screening = Screening.last
         expect(screening.seats.count).to eq(100)
       end
+    end
+
+    context 'screening has invalid attributes' do
+      let(:invalid_cinema_hall) { create(:cinema_hall, number_of_seats: 123) }
+      let(:movie) { create(:movie) }
+      let(:role) { create(:role, :employee_role) }
+      let(:employee) { create(:user, role_id: role.id) }
+
+      subject(:create_screening_with_invalid_attributes) do
+        auth_params = fetch_auth_params_from_login(response)
+        post '/screenings',
+             params: {
+               movie_id: movie.id,
+               cinema_hall_id: invalid_cinema_hall.id,
+               start_time: '2021-08-18T00:00:00.000Z'
+             }, headers: auth_params
+      end
+
+      before do
+        login(employee)
+      end
 
       it 'invalid number of seats' do
         create_screening_with_invalid_attributes
@@ -108,13 +126,21 @@ RSpec.describe('Screenings', type: :request) do
   describe 'PUT /screening' do
     let(:screening) { create(:screening) }
     let(:new_movie) { create(:movie) }
+    let(:role) { create(:role, :employee_role) }
+    let(:employee) { create(:user, role_id: role.id) }
+
+    before do
+      login(employee)
+    end
 
     subject(:update_screening) do
-      put "/screenings/#{screening.id}", params: { movie_id: new_movie.id }
+      auth_params = fetch_auth_params_from_login(response)
+      put "/screenings/#{screening.id}", params: { movie_id: new_movie.id }, headers: auth_params
     end
 
     subject(:update_screening_with_wrong_attrbutes) do
-      put "/screenings/#{screening.id}", params: { movie_id: 0 }
+      auth_params = fetch_auth_params_from_login(response)
+      put "/screenings/#{screening.id}", params: { movie_id: 0 }, headers: auth_params
     end
 
     it 'valid http status' do
