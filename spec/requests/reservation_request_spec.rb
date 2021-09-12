@@ -12,7 +12,6 @@ RSpec.describe('Reservations', type: :request) do
       GenerateSeats.new(screening.cinema_hall_id, screening.id).call
     end
     let(:seat_ids) { screening.seats.first(2).map(&:id) }
-    let(:seat_ids2) { screening.seats.last(2).map(&:id) }
 
     context 'when authenticated' do
       before do
@@ -46,13 +45,6 @@ RSpec.describe('Reservations', type: :request) do
         end
       end
       context 'check validators' do
-        let!(:reservation1) { create(:reservation, user: user, screening: screening) }
-        let!(:reservation2) { create(:reservation, user: user, screening: screening) }
-        before do
-          AssignSeats.new(reservation1.id, seat_ids, screening.id).call
-          AssignSeats.new(reservation2.id, seat_ids2, screening.id).call
-        end
-
         subject(:create_reservation) do
           auth_params = fetch_auth_params_from_login(response)
           post '/reservations', params: { screening_id: screening.id, seat_ids: seat_ids, user_id: user.id },
@@ -64,6 +56,21 @@ RSpec.describe('Reservations', type: :request) do
           reservation = Reservation.last
           seats_reservations = ReservationsSeats.where(reservation_id: reservation.id)
           expect(seats_reservations.count).to eq(2)
+        end
+      end
+
+      context 'validator return error' do
+        let(:seat_ids2) { screening.seats.last(2).map(&:id) }
+        let!(:reservation2) { create(:reservation, user: user, screening: screening) }
+        before do
+          AssignSeats.new(reservation2.id, { seat_ids: seat_ids2, screening_id: screening.id }).call
+        end
+
+        subject(:create_reservation) do
+          auth_params = fetch_auth_params_from_login(response)
+          post '/reservations', params: { screening_id: screening.id, seat_ids:
+          seat_ids2, user_id: user.id },
+                                headers: auth_params
         end
 
         it 'returns error message when seats already taken' do
@@ -93,14 +100,14 @@ RSpec.describe('Reservations', type: :request) do
   describe 'GET reservations/' do
     let(:screening) { create(:screening) }
     let(:reservation) { create(:reservation) }
-    let(:role) { create(:role) }
-    let(:user) { create(:user, email: 'new@email.com') }
+    let(:role) { create(:role, :employee_role) }
+    let(:employee) { create(:user, role_id: role.id, email: 'new@email.com') }
 
     before do
       seat_id = screening.seats.first.to_a
       GenerateSeats.new(screening.cinema_hall_id, screening.id).call
-      AssignSeats.new(reservation.id, seat_id, screening.id).call
-      login(user)
+      AssignSeats.new(reservation.id, { seat_ids: seat_id, screening_id: screening.id }).call
+      login(employee)
     end
 
     subject(:get_reservations) do

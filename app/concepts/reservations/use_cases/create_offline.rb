@@ -23,6 +23,7 @@ module Reservations
       end
 
       private
+
       attr_reader :params, :repository
     end
   end

@@ -22,6 +22,7 @@ module Reservations
         end
         ReservationConfirmationMailer.with(reservation: @reservation).confirmation_email.deliver_later
         CancelReservationJob.set(wait_until: cancellation_time).perform_later(@reservation.id)
+        @reservation
       end
 
       private

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class ScreeningsController < ApplicationController
-  before_action :authenticate_user!, only: %i[create, update]
+  before_action :authenticate_user!, only: %i[update create]
   def index
     render json: Screenings::Representers::Multiple.new.call
   end
@@ -14,6 +14,7 @@ class ScreeningsController < ApplicationController
   end
 
   def update
+    authorize Screening, :update?
     updated_screening = Screenings::UseCases::Update.new(params: screening_params, id: params[:id]).call
     render json: Screenings::Representers::Single.new(updated_screening).call, status: :ok
   rescue ActiveRecord::RecordInvalid => e
@@ -23,6 +24,7 @@ class ScreeningsController < ApplicationController
   end
 
   def create
+    authorize Screening, :create?
     screening = Screenings::UseCases::Create.new(params: screening_params).call
     render json: Screenings::Representers::Single.new(screening).call, status: :created
   rescue GenerateSeats::InvalidNumberOfSeats => e

@@ -5,7 +5,8 @@ require 'rails_helper'
 RSpec.describe 'CinemaHalls', type: :request do
   describe 'GET /cinema_halls' do
     let(:cinema_hall) { create(:cinema_hall) }
-    let(:role) { create(:role) }
+    let(:role) { create(:role, :employee_role) }
+    let(:employee) { create(:user, role_id: role.id) }
     let(:user) { create(:user) }
 
     before do
@@ -18,7 +19,7 @@ RSpec.describe 'CinemaHalls', type: :request do
     end
     context 'when authenticated' do
       before do
-        login(user)
+        login(employee)
       end
 
       it 'returns http success' do
@@ -38,8 +39,8 @@ RSpec.describe 'CinemaHalls', type: :request do
   describe 'POST /cinema_halls' do
     context 'when authenticated' do
       let(:cinema_hall) { create(:cinema_hall) }
-      let(:role) { create(:role) }
-      let(:user) { create(:user) }
+      let(:role) { create(:role, :employee_role) }
+      let(:employee) { create(:user, role_id: role.id) }
 
       subject(:create_cinema_hall) do
         auth_params = fetch_auth_params_from_login(response)
@@ -51,7 +52,7 @@ RSpec.describe 'CinemaHalls', type: :request do
         let(:cinema_hall) { CinemaHall.new(name: 'Lalka', number_of_seats: 100) }
 
         before do
-          login(user)
+          login(employee)
         end
 
         it 'valid http status' do
@@ -82,11 +83,11 @@ RSpec.describe 'CinemaHalls', type: :request do
         post '/cinema_halls', params: { number_of_seats: -10, name: '' }, headers: auth_params
       end
 
-      let(:role) { create(:role) }
-      let(:user) { create(:user) }
+      let(:role) { create(:role, :employee_role) }
+      let(:employee) { create(:user, role_id: role.id) }
 
       before do
-        login(user)
+        login(employee)
       end
 
       it 'valid http status' do
@@ -99,8 +100,8 @@ end
 
 describe 'PUT /cinema_halls' do
   let(:cinema_hall) { create(:cinema_hall) }
-  let(:role) { create(:role) }
-  let(:user) { create(:user) }
+  let(:role) { create(:role, :employee_role) }
+  let(:employee) { create(:user, role_id: role.id) }
   let(:cinema_hall) { CinemaHall.create(name: 'Lalka', number_of_seats: 100) }
 
   before do
@@ -114,7 +115,7 @@ describe 'PUT /cinema_halls' do
 
   context 'valid cinema_hall attributes' do
     before do
-      login(user)
+      login(employee)
     end
 
     it 'valid http status' do
@@ -131,7 +132,7 @@ describe 'PUT /cinema_halls' do
 
   context 'ciname_hall do not exists' do
     before do
-      login(user)
+      login(employee)
     end
     subject(:update_invalid_cinema_hall) do
       auth_params = fetch_auth_params_from_login(response)

@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   resources :screenings, only: %i[index show update create]
   resources :reservations, only: %i[index show create]
   resources :seats, only: %i[index show destroy]
-  
+  post '/create_offline', to: "reservation#create_offline"
 
   resources :screenings do
     resources :seats

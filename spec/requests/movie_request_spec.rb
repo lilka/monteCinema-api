@@ -5,8 +5,8 @@ require 'rails_helper'
 RSpec.describe 'Movies', type: :request do
   describe 'GET /movies' do
     let(:movie) { create(:movie) }
-    let(:role) { create(:role) }
-    let(:user) { create(:user) }
+    let(:role) { create(:role, :employee_role) }
+    let(:employee) { create(:user, role_id: role.id) }
 
     before do
       movie
@@ -18,7 +18,7 @@ RSpec.describe 'Movies', type: :request do
     end
     context 'when authenticated' do
       before do
-        login(user)
+        login(employee)
       end
 
       it 'returns http success' do
@@ -38,8 +38,8 @@ RSpec.describe 'Movies', type: :request do
   describe 'POST /movies' do
     context 'when authenticated' do
       let(:movie) { create(:movie) }
-      let(:role) { create(:role) }
-      let(:user) { create(:user) }
+      let(:role) { create(:role, :employee_role) }
+      let(:employee) { create(:user, role_id: role.id) }
 
       subject(:create_movie) do
         auth_params = fetch_auth_params_from_login(response)
@@ -51,7 +51,7 @@ RSpec.describe 'Movies', type: :request do
         let(:movie) { Movie.new(title: 'Pan Tadeusz', description: 'Lorem impsum', duration: 180) }
 
         before do
-          login(user)
+          login(employee)
         end
 
         it 'valid http status' do
@@ -83,11 +83,11 @@ RSpec.describe 'Movies', type: :request do
         post '/movies', params: { titile: '', duration: -1 }, headers: auth_params
       end
 
-      let(:role) { create(:role) }
-      let(:user) { create(:user) }
+      let(:role) { create(:role, :employee_role) }
+      let(:employee) { create(:user, role_id: role.id) }
 
       before do
-        login(user)
+        login(employee)
       end
 
       it 'valid http status' do
@@ -99,8 +99,8 @@ RSpec.describe 'Movies', type: :request do
 end
 
 describe 'PUT /movies' do
-  let(:role) { create(:role) }
-  let(:user) { create(:user) }
+  let(:role) { create(:role, :employee_role) }
+  let(:employee) { create(:user, role_id: role.id) }
   let(:movie) { Movie.create(title: 'Lalka', description: 'description', duration: 123) }
 
   before do
@@ -114,7 +114,7 @@ describe 'PUT /movies' do
 
   context 'valid movie attributes' do
     before do
-      login(user)
+      login(employee)
     end
 
     it 'valid http status' do
@@ -137,7 +137,7 @@ describe 'PUT /movies' do
     end
 
     before do
-      login(user)
+      login(employee)
     end
 
     it 'invalid attributes' do
@@ -149,7 +149,7 @@ describe 'PUT /movies' do
 
   context 'movie do not exists' do
     before do
-      login(user)
+      login(employee)
     end
     subject(:update_invalid_movie) do
       auth_params = fetch_auth_params_from_login(response)

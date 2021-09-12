@@ -14,7 +14,7 @@ RSpec.describe CancelReservationJob, type: :job do
   let!(:reservation) { create(:reservation, user: user, screening: screening) }
 
   before do
-    AssignSeats.new(reservation.id, seat_ids, screening.id).call
+    AssignSeats.new(reservation.id, { seat_ids: seat_ids, screening_id: screening.id }).call
   end
 
   describe 'perform_later' do
