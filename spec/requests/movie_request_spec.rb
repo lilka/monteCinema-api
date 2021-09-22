@@ -54,12 +54,12 @@ RSpec.describe 'Movies', type: :request do
           login(employee)
         end
 
-        it 'valid http status' do
+        it 'has valid http status' do
           create_movie
           expect(response).to have_http_status(201)
         end
 
-        it 'valid attributes' do
+        it 'has valid attributes' do
           create_movie
           json = JSON.parse(response.body)
           expect(json['title']).to eq(movie.title)

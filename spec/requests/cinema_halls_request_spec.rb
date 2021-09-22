@@ -55,12 +55,12 @@ RSpec.describe 'CinemaHalls', type: :request do
           login(employee)
         end
 
-        it 'valid http status' do
+        it 'has valid http status' do
           create_cinema_hall
           expect(response).to have_http_status(201)
         end
 
-        it 'valid attributes' do
+        it 'has valid attributes' do
           create_cinema_hall
           json = JSON.parse(response.body)
           expect(json['name']).to eq(cinema_hall.name)
@@ -90,7 +90,7 @@ RSpec.describe 'CinemaHalls', type: :request do
         login(employee)
       end
 
-      it 'valid http status' do
+      it 'has valid http status' do
         create_cinema_hall_with_invalid_attributes
         expect(response).to have_http_status(422)
       end
@@ -118,12 +118,12 @@ describe 'PUT /cinema_halls' do
       login(employee)
     end
 
-    it 'valid http status' do
+    it 'has valid http status' do
       update_cinema_hall
       expect(response).to have_http_status(200)
     end
 
-    it 'valid attributes' do
+    it 'has valid attributes' do
       update_cinema_hall
       json = JSON.parse(response.body)
       expect(json).to eq({ 'id' => cinema_hall.id, 'name' => cinema_hall.name, 'number_of_seats' => 150 })
@@ -138,7 +138,7 @@ describe 'PUT /cinema_halls' do
       auth_params = fetch_auth_params_from_login(response)
       put '/cinema_halls/10', params: { number_of_seats: 150 }, headers: auth_params
     end
-    it 'valid error message ' do
+    it 'has valid error message ' do
       update_invalid_cinema_hall
       json = JSON.parse(response.body)
       expect(json).to eq({ 'error' => "Couldn't find CinemaHall with 'id'=10" })
