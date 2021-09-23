@@ -44,6 +44,8 @@ ActiveRecord::Schema.define(version: 2021020210810102522) do
   create_table "reservations_seats", id: false, force: :cascade do |t|
     t.bigint "reservation_id", null: false
     t.bigint "seat_id", null: false
+    t.datetime "deleted_at"
+    t.datetime "reserved_at"
   end
 
   create_table "roles", force: :cascade do |t|

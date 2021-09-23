@@ -20,8 +20,8 @@ module ReservationSeats
       adapter.where('reservation_id = ?', reservation_id)
     end
 
-    def delete_by(filter)
-      adapter.where(filter).delete_all
+    def update(filter, update_field)
+      adapter.where(filter).update_all(update_field)
     end
   end
 end

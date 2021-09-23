@@ -7,7 +7,7 @@ class ReleaseSeats
   end
 
   def call
-    repository.delete_by(reservation_id: reservation_id)
+    repository.update_by(reservation_id: reservation_id, deleted_at: Datetime.now)
   end
 
   private
