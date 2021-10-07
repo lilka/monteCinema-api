@@ -67,7 +67,7 @@ RSpec.describe 'CinemaHalls', type: :request do
           expect(json['number_of_seats']).to eq(cinema_hall.number_of_seats)
         end
 
-        it 'record created in database' do
+        it 'creates record in database' do
           expect do
             create_cinema_hall
           end.to change {
