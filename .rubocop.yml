@@ -14,3 +14,4 @@ Style/Documentation:
 Metrics/BlockLength:
   Exclude: 
     - 'spec/**/*'
+    
