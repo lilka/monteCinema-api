@@ -1,26 +1,43 @@
 # README
+## MonteCinema API Server 
+This is a simple API Server, which allows to buy cinema tickets. 
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Technologies 
+* Ruby 2.7.0
+* Rails 6.1.4
+* Sidekiq 4.1.2
+* PostgreSQL 13.4
 
-Things you may want to cover:
+## Install & run 
 
-* Ruby version
+```
+# Clone the repo locally
+$ git clone git@github.com:lilka/monteCinema-api.git
 
-* System dependencies
+# Install required gems: 
+$ bundle install 
 
-* Configuration
+# Create and seed database 
+$ rails db:create db:migrate db:seed
 
-* Database creation
+# Run rails server 
+$ rails s 
 
-* Database initialization
+# Run sidekiq
+$ bundle exec sidekiq
 
-* How to run the test suite
+```
 
-* Services (job queues, cache servers, search engines, etc.)
+The app is ready now to use at http://localhost:3000
 
-* Deployment instructions
+## Run test 
+```
+$ rspec 
 
-* ...
-# monteCinema-api
+```
+
+
+
+
+
 
