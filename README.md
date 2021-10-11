@@ -25,7 +25,6 @@ $ rails s
 
 # Run sidekiq
 $ bundle exec sidekiq
-
 ```
 
 The app is ready now to use at http://localhost:3000
@@ -33,7 +32,6 @@ The app is ready now to use at http://localhost:3000
 ## Run test 
 ```
 $ rspec 
-
 ```
 
 
