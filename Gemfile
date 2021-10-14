@@ -29,6 +29,10 @@ gem 'sentry-rails', '~> 4.3', '>= 4.3.3'
 gem 'sentry-ruby', '~> 4.6', '>= 4.6.4'
 gem 'faker', '~> 2.18', '>=2.18.0'
 gem 'figaro', '~> 1.1', '>= 1.1.1'
+gem "graphql", '~> 1.12.16'
+gem 'sass-rails'
+
+
 
 
 
@@ -58,6 +62,8 @@ group :development do
   gem 'listen', '~> 3.3'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
+  gem "graphiql-rails"
+
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
