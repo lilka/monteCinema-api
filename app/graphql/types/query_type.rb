@@ -5,13 +5,7 @@ module Types
     # Add `node(id: ID!) and `nodes(ids: [ID!]!)`
     include GraphQL::Types::Relay::HasNodeField
     include GraphQL::Types::Relay::HasNodesField
-    field :cinemaHall,
-      [Types::CinemaHallType], 
-      null: false, 
-      description: "Returns list of CinemaHalls in the MonteCinema liblary"
-
-      def cinemaHall
-        CinemaHall.all
-      end
+    field :fetch_cinema_halls, resolver: Queries::FetchCinemaHalls
+    field :fetch_cinema_hall, resolver: Queries::FetchCinemaHall
   end
 end

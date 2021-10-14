@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Types
   class CinemaHallType < Types::BaseObject
     field :id, ID, null: false
