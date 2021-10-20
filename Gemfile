@@ -30,7 +30,7 @@ gem 'sentry-ruby', '~> 4.6', '>= 4.6.4'
 gem 'faker', '~> 2.18', '>=2.18.0'
 gem 'figaro', '~> 1.1', '>= 1.1.1'
 gem "graphql", '~> 1.12.16'
-gem 'sass-rails'
+
 
 
 
@@ -55,6 +55,10 @@ group :development, :test do
   gem 'letter_opener', '~> 1.4', '>= 1.4.1' 
   gem 'dotenv-rails', '~> 2.1', '>= 2.1.1'
   gem 'simplecov', '~> 0.21.0', require: false
+  
+  # Graphiql IDE
+  gem "graphiql-rails"
+  gem 'sass-rails'
 
 end
 
@@ -62,7 +66,7 @@ group :development do
   gem 'listen', '~> 3.3'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
-  gem "graphiql-rails"
+
 
 end
 
